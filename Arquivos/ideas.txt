@@ -1,0 +1,25 @@
+- Site de Emprego ( indev.com )
+
+HOME:
+	
+	- Vagas listadas na Home
+	- Filtro de busca de vagas
+
+	- Login do Usuário
+	- Anunciar vagas (Login ou cadastro agência/empresa)
+	- Filtros rápidos
+	
+Diferenciais:
+
+	- Sugestão de cursos através dos requisitos da vaga.
+	- Cadastro simples do usuario
+	- Criação de currículos e templates*
+	- Notificação*
+	- Agendamento de entrevistas*
+	
+	*desejável
+	
+	
+Ideias diferentes
+	
+	- Live com os entrevistados
