@@ -16,6 +16,7 @@ Diferenciais:
 	- Criação de currículos e templates*
 	- Notificação*
 	- Agendamento de entrevistas*
+	- Perfil de empresa e usuario*
 	
 	*desejável
 	
