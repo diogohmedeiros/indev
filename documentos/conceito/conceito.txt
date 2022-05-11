@@ -1,0 +1,144 @@
+
+Estrutura do banco de dados do projeto de busca de empregos
+
+
+
+tabela 1 - 
+		usuários
+			id_usuario - integer
+			tipo_de_usuario(empregado,empregador,suporte) - integer
+			cnpj_empresa_atual - integer
+			status_empresa_atual - boolean
+			foto_usuario - longtext
+			nome - varchar
+			telefone - varchar
+			cpf - varchar
+			rg - varchar
+			cep - varchar
+			formacao - varchar
+			estado_civil - varchar
+			email - varchar
+			senha - varchar
+			status_log - boolean	
+		
+tabela 2 -
+		empresa
+			id_empresa - integer
+			tipo_de_usuario(empregado,empregador,suporte) - integer
+			foto_empresa - longetext
+			nome_empresa - varchar
+			telefone -varchar
+			cnpj - varchar
+			email - varchar
+			senha - varchar
+			
+tabela 3 - 
+		 vagas 
+			id_vaga - integer
+			id_empresa - integer
+			cidade - varchar
+			nome_da_empresa - varchar
+			cargo - varchar
+			salario - decimal
+			descricao - varchar
+			beneficios - varchar
+			expediente - varchar
+
+tabela 4 -
+		publicações
+			id_publicacao - integer
+			id_empresa - integer
+			data_publicacao - varchar
+			data_alteracao - varchar
+			nome_publicador - varchar
+			email_publicador - varchar
+			telefone_publicador - varchar
+		
+	
+tabela 5 - 
+		currículos
+			id_curriculo - integer
+			id_usuario - integer
+			documento - longbloob
+			categoria - varchar 
+		
+tabela 6 -
+		enderecos_usuario
+			id_usuario - integer
+			nome_pais - varchar
+			nome_estado - varchar
+			nome_cidade - varchar
+			nome_bairro - varchar
+			nome_rua - varchar
+			numero - varchar
+			complemento - varchar
+		
+	
+tabela 7 -
+		enderecos_empresa
+			id_empresa - integer
+			nome_pais - varchar
+			nome_estado - varchar
+			nome_cidade - varchar
+			nome_bairro - varchar
+			nome_rua - varchar
+			numero - varchar
+			complemento - varchar
+		
+tabela 8 -
+		certificados
+			id_certificado - integer
+			id_usuario - integer 
+			documento - longbloob
+	
+tabela 9 -
+		indicacoes
+			id_indicacao - integer
+			id_indicador - integer 
+			cnpj_empresa_indicador - varchar
+			id_indicado - integer
+	
+tabela 10 -
+		parentesco
+			mae - integer
+			pai - integer
+			filho - integer
+			esposa - integer
+			noiva - integer
+			marido - integer
+			noivo - integer
+		
+tabela 11 - 
+		relacionamento_parentesco
+			id_relacParent - integer
+			id_usuario - integer
+			cpf_parente - varchar
+			id_parentesco - integer
+		
+tabela 12 - 
+		relacionamento_curriculo_empresa
+			id_rela_curriculo - integer
+			id_curriculo - integer
+			id_empresa - integer
+
+tabela 13 - 
+		amizade 
+			id_amizade - integer
+			id_usuario_um - integer
+			id_usuario_dois - integer
+			status_amizade - boolean
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
