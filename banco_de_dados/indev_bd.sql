@@ -1,0 +1,18 @@
+
+
+
+
+DROP DATABASE IF EXISTS indev;
+
+CREATE DATABASE indev CHARSET=UTF8 COLLATE UTF8_GENERAL_CI;
+
+USE indev;
+
+CREATE TABLE empresa(
+
+	id_empresa INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	tipo_de_usuario 
+
+
+
+);
