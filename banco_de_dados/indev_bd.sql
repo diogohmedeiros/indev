@@ -1,7 +1,4 @@
 
-
-
-
 DROP DATABASE IF EXISTS indev;
 
 CREATE DATABASE indev CHARSET=UTF8 COLLATE UTF8_GENERAL_CI;
@@ -106,11 +103,73 @@ CREATE TABLE relac_curriculo_emp(
 	CONSTRAINT fk_relac_empresa FOREIGN KEY (id_empresa) REFERENCES empresas(id_empresa) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+CREATE TABLE enderecos_usuario(
+	id_ender_user INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	id_usuario INTEGER NOT NULL,
+	nome_pais VARCHAR(25) NOT NULL,
+	nome_estado VARCHAR(25) NOT NULL,
+	nome_cidade VARCHAR(25) NOT NULL,
+	nome_bairro VARCHAR(25) NOT NULL,
+	nome_rua VARCHAR(30) NOT NULL,
+	numero VARCHAR(5) NOT NULL,
+	complemento VARCHAR(10) NOT NULL,
+	
+	CONSTRAINT fk_ender_user FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE indicacoes(
+	id_indicacao INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	id_indicador INTEGER NOT NULL,
+	id_empresa_indicador INTEGER NOT NULL,
+	id_indicado INTEGER NOT NULL,
+	
+	CONSTRAINT fk_indicador FOREIGN KEY (id_indicador) REFERENCES usuarios(id_usuario) ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT fk_indicado FOREIGN KEY (id_indicado) REFERENCES usuarios(id_usuario) ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT fk_id_empresa FOREIGN KEY (id_empresa_indicador) REFERENCES empresas(id_empresa) ON DELETE CASCADE ON UPDATE CASCADE
+);
 
 
+CREATE TABLE certificados(
+	id_certificado INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	id_usuario INTEGER NOT NULL,
+	documento LONGBLOB NOT NULL,
+	
+	CONSTRAINT fk_certificado FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE amizade(
+	id_amizade INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	id_usuario_um INTEGER NOT NULL,
+	id_usuario_dois INTEGER NOT NULL,
+	status_amizade BOOLEAN NOT NULL,
+	
+	CONSTRAINT fk_amizade_user_um FOREIGN KEY (id_usuario_um) REFERENCES usuarios(id_usuario) ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT fk_amizade_user_dois FOREIGN KEY (id_usuario_dois) REFERENCES usuarios(id_usuario) ON DELETE CASCADE ON UPDATE CASCADE
+);
 
 
+CREATE TABLE parentesco(
+	id_parentesco INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	parentesco VARCHAR(10) NOT NULL
+);
 
+CREATE TABLE relac_parentesco(
+	id_relac_parentesco INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	id_usuario INTEGER NOT NULL,
+	id_parente INTEGER NOT NULL,
+	id_parentesco INTEGER NOT NULL,
+	
+	CONSTRAINT fk_user_parent FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario) ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT fk_id_parent FOREIGN KEY (id_parente) REFERENCES usuarios(id_usuario) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+INSERT INTO parentesco values
+	(DEFAULT, "Mãe"),
+	(DEFAULT, "Pai"),
+	(DEFAULT, "Irmão(a)"),
+	(DEFAULT, "Marido"),
+	(DEFAULT, "Esposa"),
+	(DEFAULT, "Noivo(a)");
 
 
 
