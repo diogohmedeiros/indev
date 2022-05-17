@@ -17,20 +17,33 @@ const postUsuario = (req,res) => {
     let senha = req.body.senha
     let status = false
 
-    cnpj_empresa_atual = (cnpj_empresa_atual === undefined) ? null : cnpj_empresa_atual
+    cnpj_empresa_atual = (cnpj_empresa_atual === undefined) ? "NULL" : cnpj_empresa_atual
     status_empresa_atual = (status_empresa_atual === undefined) ? false : status_empresa_atual
-    foto_usuario = (foto_usuario === undefined) ? null : foto_usuario
-    cpf = (cpf === undefined) ? null : cpf
-    rg = (rg === undefined) ? null : rg
-    cep = (cep === undefined) ? null : cep
-    formacao = (formacao === undefined) ? null : formacao
-    estado_civil = (estado_civil === undefined) ? null : estado_civil
+    foto_usuario = (foto_usuario === undefined) ? "NULL" : foto_usuario
+    rg = (rg === undefined) ? "NULL" : rg
+    cep = (cep === undefined) ? "NULL" : cep
+    formacao = (formacao === undefined) ? "NULL" : formacao
+    estado_civil = (estado_civil === undefined) ? "NULL" : estado_civil
 
     if(nome !== undefined || telefone !== undefined || email !== undefined || senha !== undefined){
 
+        function retornaString(cpf){
 
-        let string = `insert into usuarios (tipo_de_usuario, cnpj_empresa_atual, status_empresa_atual, foto_usuario, nome_usuario, telefone, cpf, rg, cep, formacao, estado_civil, email, senha, status)
-        values(${tipo_de_usuario}, '${cnpj_empresa_atual}', ${status_empresa_atual}), '${foto_usuario}', '${nome}', '${telefone}', '${cpf}', '${rg}', '${cep}', '${formacao}', '${estado_civil}', '${email}','${senha}', ${status}`
+            if(cpf !== undefined){
+
+                return `insert into usuarios (tipo_de_usuario, cnpj_empresa_atual, status_empresa_atual, foto_usuario, nome_usuario, telefone, cpf, rg, cep, formacao, estado_civil, email, senha, status)
+                values(${tipo_de_usuario}, '${cnpj_empresa_atual}', ${status_empresa_atual}, '${foto_usuario}', '${nome}', '${telefone}', '${cpf}', '${rg}', '${cep}', '${formacao}', '${estado_civil}', '${email}','${senha}', ${status})`
+            }
+
+            else{
+
+                return `insert into usuarios (tipo_de_usuario, cnpj_empresa_atual, status_empresa_atual, foto_usuario, nome_usuario, telefone, rg, cep, formacao, estado_civil, email, senha, status)
+                values(${tipo_de_usuario}, '${cnpj_empresa_atual}', ${status_empresa_atual}, '${foto_usuario}', '${nome}', '${telefone}', '${rg}', '${cep}', '${formacao}', '${estado_civil}', '${email}','${senha}', ${status})`
+
+            }
+        }
+
+        let string = retornaString(cpf)
 
 
         con.query(string, (err, result) => {
@@ -42,20 +55,10 @@ const postUsuario = (req,res) => {
                 res.status(400).json({err: err.message})
             }
         })
-
-
-
-
     }
-
     else{
-
         res.status(400).json({"err": "informe os campos: nome, telefone, email e senha"})
     }
-
-
-
-
 }
 
 

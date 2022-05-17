@@ -11,9 +11,9 @@ CREATE TABLE empresas(
 	tipo_de_usuario INTEGER NOT NULL,
 	foto_de_perfil_empresa LONGTEXT,
 	nome_empresa VARCHAR(30) NOT NULL,
-	telefone VARCHAR(20) NOT NULL,
-	cnpj VARCHAR(25) NOT NULL,
-	email VARCHAR(30) NOT NULL,
+	telefone VARCHAR(20) NOT NULL UNIQUE,
+	cnpj VARCHAR(25) NOT NULL UNIQUE,
+	email VARCHAR(30) NOT NULL UNIQUE,
 	senha VARCHAR(100) NOT NULL
 );
 
@@ -72,13 +72,13 @@ CREATE TABLE usuarios(
 	status_empresa_atual BOOLEAN NOT NULL,
 	foto_usuario LONGTEXT,
 	nome_usuario VARCHAR(50) NOT NULL,
-	telefone VARCHAR(20) NOT NULL,
-	cpf VARCHAR(15),
+	telefone VARCHAR(25) NOT NULL UNIQUE,
+	cpf VARCHAR(15) UNIQUE,
 	rg VARCHAR(20),
 	cep VARCHAR(20),
 	formacao VARCHAR(100),
 	estado_civil VARCHAR(25),
-	email VARCHAR(30) NOT NULL,
+	email VARCHAR(30) NOT NULL UNIQUE,
 	senha VARCHAR(100) NOT NULL,
 	status BOOLEAN NOT NULL
 );
@@ -160,7 +160,8 @@ CREATE TABLE relac_parentesco(
 	id_parentesco INTEGER NOT NULL,
 	
 	CONSTRAINT fk_user_parent FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario) ON DELETE CASCADE ON UPDATE CASCADE,
-	CONSTRAINT fk_id_parent FOREIGN KEY (id_parente) REFERENCES usuarios(id_usuario) ON DELETE CASCADE ON UPDATE CASCADE
+	CONSTRAINT fk_id_parent FOREIGN KEY (id_parente) REFERENCES usuarios(id_usuario) ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT fk_parentesco FOREIGN KEY (id_parentesco) REFERENCES parentesco(id_parentesco) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 INSERT INTO parentesco values
