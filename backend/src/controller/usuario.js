@@ -49,30 +49,108 @@ const postUsuario = (req,res) => {
         con.query(string, (err, result) => {
 
             if(err === null){
-                res.status(200).json({result})
+                res.status(200).json({result}).end()
             }
             else{
-                res.status(400).json({err: err.message})
+                res.status(400).json({err: err.message}).end()
             }
         })
     }
     else{
-        res.status(400).json({"err": "informe os campos: nome, telefone, email e senha"})
+        res.status(400).json({"err": "informe os campos: nome, telefone, email e senha"}).end()
     }
 }
 
+const getAllUsuarios = (req,res) => {
+
+    let string = `select * from usuarios`
+
+    con.query(string, (err,result) => {
+
+        if(err === null){
+
+            res.status(200).json(result).end()
+
+        }else{
+
+            res.status(400).json({err: err.message}).end()
+        }
+    })
+
+
+}
+
+const loginUsuario = (req,res) => {
+
+    let email = req.body.email
+    let senha = req.body.senha
+    let string = `select id_usuario, cnpj_empresa_atual, status_empresa_atual, foto_usuario, nome_usuario, telefone, cpf, rg, cep, formacao, estado_civil, email from usuarios where email = '${email}' and senha = '${senha}'`
+
+    if(email !== undefined && senha !== undefined){
+
+        con.query(string, (err,result) => {
+
+            if(err === null){
+                res.status(200).json(result).end()
+            }else{
+                res.status(400).json({err: err.message}).end()
+            }
+        })
+
+    }else{
+        res.status(400).json({"err": "informe os campos de email e senha"}).end()
+    }
+
+}
+
+// métodos para buscar usuarios 
+
+const getUsuariosNome = (req,res) => {
+
+    let nome = req.params.nome_usuario
+
+    if(nome !== undefined){
+        let string = `select cnpj_empresa_atual, status_empresa_atual, foto_usuario, nome_usuario, telefone, formacao, estado_civil, email from usuarios where nome_usuario like '%${nome}%'`
+
+        con.query(string, (err,result) => {
+            if(err === null){
+
+                res.status(200).json(result).end()
+
+            }else{
+                res.status(400).json({err: err.message}).end()
+            }
+        })
+    }else{
+        res.status(400).json({"err": "informe o nome do usuario"}).end()
+    }
+
+
+}
+
+const updateUsuario = (req,res) => {
+
+    let nome = req.body.nome_usuario
+    let cnpj_empresa_atual = req.body.cnpj_empresa_atual
+    let status_empresa_atual = req.body.status_empresa_atual
+    let foto_usuario = req.body.foto_usuario
+    let telefone = req.body.telefone
+    let formacao = req.body.formacao
+    let estado_civil = req.body.estado_civil
 
 
 
+    
 
-
-
-
+}
 
 
 
 
 module.exports = {
 
-    postUsuario
+    postUsuario,
+    getAllUsuarios,
+    loginUsuario,
+    getUsuariosNome
 }
