@@ -130,17 +130,23 @@ const getUsuariosNome = (req,res) => {
 
 const updateUsuario = (req,res) => {
 
-    let nome = req.body.nome_usuario
+    let id_usuario = req.body.id_usuario
     let cnpj_empresa_atual = req.body.cnpj_empresa_atual
     let status_empresa_atual = req.body.status_empresa_atual
     let foto_usuario = req.body.foto_usuario
+    let nome = req.body.nome_usuario
     let telefone = req.body.telefone
+    let cpf = req.body.cpf
+    let rg = req.body.rg
+    let cep = req.body.cep
     let formacao = req.body.formacao
     let estado_civil = req.body.estado_civil
 
 
+    let string = `update usuarios set cnpj_empresa_atual = '${cnpj_empresa_atual}', status_empresa_atual = ${status_empresa_atual}, foto_usuario = '${foto_usuario}',
+    nome_usuario = '${nome}', telefone = '${telefone}', cpf = '${cpf}', rg = '${rg}', cep = '${cep}', formacao = '${formacao}', estado_civil = '${estado_civil}'
+    where id_usuario = ${id_usuario}`
 
-    
 
 }
 
