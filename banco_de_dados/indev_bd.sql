@@ -53,13 +53,14 @@ CREATE TABLE enderecos_empresa(
 
 	id_empresa_emp INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	id_empresa INTEGER NOT NULL,
+	cep VARCHAR(20),
 	nome_pais VARCHAR(25) NOT NULL,
 	nome_estado VARCHAR(25) NOT NULL,
 	nome_cidade VARCHAR(25) NOT NULL,
 	nome_bairro VARCHAR(25) NOT NULL,
 	nome_rua VARCHAR(30) NOT NULL,
 	numero VARCHAR(5) NOT NULL,
-	complemento VARCHAR(30) NOT NULL,
+	complemento VARCHAR(30),
 	
 	CONSTRAINT fk_end_emp FOREIGN KEY (id_empresa) REFERENCES empresas(id_empresa) ON DELETE CASCADE ON UPDATE CASCADE
 );
@@ -75,7 +76,6 @@ CREATE TABLE usuarios(
 	telefone VARCHAR(25) NOT NULL UNIQUE,
 	cpf VARCHAR(15) UNIQUE,
 	rg VARCHAR(20),
-	cep VARCHAR(20),
 	formacao VARCHAR(100),
 	estado_civil VARCHAR(25),
 	email VARCHAR(30) NOT NULL UNIQUE,
@@ -106,13 +106,14 @@ CREATE TABLE relac_curriculo_emp(
 CREATE TABLE enderecos_usuario(
 	id_ender_user INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	id_usuario INTEGER NOT NULL,
+	cep VARCHAR(20),
 	nome_pais VARCHAR(25) NOT NULL,
 	nome_estado VARCHAR(25) NOT NULL,
 	nome_cidade VARCHAR(25) NOT NULL,
 	nome_bairro VARCHAR(25) NOT NULL,
 	nome_rua VARCHAR(30) NOT NULL,
 	numero VARCHAR(5) NOT NULL,
-	complemento VARCHAR(10) NOT NULL,
+	complemento VARCHAR(10),
 	
 	CONSTRAINT fk_ender_user FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario) ON DELETE CASCADE ON UPDATE CASCADE
 );
