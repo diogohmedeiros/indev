@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import { View, Text, SafeAreaView, TextInput, TouchableOpacity, Image, Button } from 'react-native';
 import style from './style.js';
 
+import TabBar from '../components/tabBar';
+
 export default function Vagas({ navigation }) {
     const [buscar, setBuscar] = useState("");
 
@@ -9,9 +11,9 @@ export default function Vagas({ navigation }) {
         <View style={style.container}>
             {/* parte header */}
             <SafeAreaView style={style.header}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => { navigation.openDrawer() }}>
                     <Image source={require('../../assets/app/menuburguer.png')} 
-                    style={{width: 30, height: 30, right: 12, top: -15}}
+                    style={{width: 30, height: 30, right: 22, top: -15}}
                     resizeMode="contain"/>
                 </TouchableOpacity>
                 <TextInput 
@@ -22,30 +24,33 @@ export default function Vagas({ navigation }) {
                     style={style.search}
                     />
                 <Image source={require('../../assets/app/search.png')} 
-                    style={{width: 20, height: 20, left: 19, top: -15}} 
+                    style={{width: 20, height: 20, left: 15, top: -15}} 
                     resizeMode="contain"/>
             </SafeAreaView>
 
-            {/* filtros */}
             <View style={{width: "100%", flexDirection: 'row', justifyContent: 'center'}}>
-                <View style={{backgroundColor: '#EBEEF5', 
-                                width: 140, 
-                                flexDirection: 'row', 
-                                padding: 10, 
-                                borderRadius: 13, 
-                                alignItems: 'center', 
-                                justifyContent: 'center',
-                                right: 5,
-                                top: -20,
-                                shadowColor: '#000',
-                                shadowOffset: { width: 2, height: 4 },
-                                shadowOpacity: 0.3,
-                                shadowRadius: 10,  
-                                elevation: 10}}>
+                {/* filtros */}
+                <TouchableOpacity style={{backgroundColor: '#EBEEF5', 
+                                    width: 140, 
+                                    flexDirection: 'row', 
+                                    padding: 10, 
+                                    borderRadius: 13, 
+                                    alignItems: 'center', 
+                                    justifyContent: 'center',
+                                    right: 5,
+                                    top: -20,
+                                    shadowColor: '#000',
+                                    shadowOffset: { width: 2, height: 4 },
+                                    shadowOpacity: 0.3,
+                                    shadowRadius: 10,  
+                                    elevation: 10}}>
                     <Image source={require('../../assets/app/settingsfilter.png')}
                     style={{width: 25, height: 25, right: 10}} />
+                    
                     <Text style={{paddingLeft: 5, fontWeight: 'bold'}}>FILTROS</Text>
-                </View>
+                </TouchableOpacity>
+                
+                {/* todas as vagas */}
                 <View style={{backgroundColor: '#EBEEF5', 
                                 width: 210, 
                                 flexDirection: 'row', 
@@ -90,6 +95,7 @@ export default function Vagas({ navigation }) {
                     </View>
                 </View>
             </View>
+                <TabBar navigation={navigation} />
         </View>
     )
 }
