@@ -1,16 +1,16 @@
-import * as React from "react"
+import React from "react"
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const Stack = createNativeStackNavigator();
 
-import Home from '../../pages/home';
+import Perfil from '../../pages/perfil';
 
-export default function App(){
+export default function ContainerPerfil(){
     return (
         <Stack.Navigator screenOptions ={{
             headerShown: false
         }}>
-            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="Perfil" component={Perfil} />
         </Stack.Navigator>
     )
 }

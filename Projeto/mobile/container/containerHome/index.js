@@ -1,16 +1,16 @@
-import * as React from "react"
+import React from "react"
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const Stack = createNativeStackNavigator();
 
-import Vagas from '../../pages/vagas';
+import Home from '../../pages/home';
 
-export default function App(){
+export default function ContainerHome(){
     return (
         <Stack.Navigator screenOptions ={{
             headerShown: false
         }}>
-            <Stack.Screen name="Vagas" component={Vagas} />
+            <Stack.Screen name="Home" component={Home} />
         </Stack.Navigator>
     )
 }
