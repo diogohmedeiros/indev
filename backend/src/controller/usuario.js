@@ -241,6 +241,32 @@ const getAllEnderecosUsuarios = (req,res) => {
 
 }
 
+const getEnderecosUsuarios = (req,res) => {
+
+    let nome = req.params.nome
+
+    if(nome !== undefined){
+
+        let string = `select * from vw_endereco_usuario where nome_usuario like '%${nome}%'`
+
+        con.query(string, (err,result) => {
+
+            if(err === null){
+
+                res.status(200).json(result).end()
+
+            }else{
+
+                res.status(400).json({err: err.message}).end()
+
+            }
+        })
+
+    }else{
+        res.status(400).json({"err": "informe o nome do usuario"}).end()
+    }
+}
+
 
 
 module.exports = {
