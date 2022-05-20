@@ -3,6 +3,8 @@ import { View, Text, SafeAreaView, TextInput, TouchableOpacity, Image, ImageBack
 import { DrawerActions } from '@react-navigation/drawer';
 import style from './style.js';
 
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
+
 import TabBar from '../components/tabBar';
 
 const image = require('../../assets/app/predio.png')

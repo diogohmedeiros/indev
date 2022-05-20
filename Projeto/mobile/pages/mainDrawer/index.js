@@ -1,9 +1,13 @@
 import React from 'react';
 
-import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 
 import Contato from '../contato';
 import SobreNos from '../sobreNos';
+import Home from '../home/index';
+import Vagas from '../vagas/index';
+import Anunciar from '../anunciar/index';
+import Perfil from '../perfil/index';
 
 const Drawer = createDrawerNavigator();
 
@@ -21,6 +25,10 @@ export default function MainDrawer() {
               </DrawerContentScrollView>
             )
           }}>
+            <Drawer.Screen name="Home" component={Home} />
+            <Drawer.Screen name="Vagas" component={Vagas} />
+            <Drawer.Screen name="Anunciar" component={Anunciar} />
+            <Drawer.Screen name="Perfil" component={Perfil} />
             <Drawer.Screen name="Contato" component={Contato}/>
             <Drawer.Screen name="Sobre Nós" component={SobreNos}/>
         </Drawer.Navigator>

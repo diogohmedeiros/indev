@@ -57,5 +57,9 @@ export default StyleSheet.create({
     abre: {
         alignItems: 'center',
         top: 14,
+    },
+    contentContainer: {
+        flex: 1,
+        alignItems: 'center',
     }
 })

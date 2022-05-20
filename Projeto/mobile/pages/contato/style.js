@@ -33,7 +33,7 @@ export default StyleSheet.create({
         borderRadius: 12,
         width: 360,
         fontWeight: 'bold',
-        height: 200,
+        height: 160,
         paddingLeft: 20,
         margin: 4,
         textAlignVertical: 'top'

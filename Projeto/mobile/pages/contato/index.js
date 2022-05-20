@@ -1,5 +1,5 @@
 import React, { useState }from 'react';
-import { View, Text, SafeAreaView, TouchableOpacity, Image, TextInput} from 'react-native';
+import { View, Text, SafeAreaView, TouchableOpacity, Image, TextInput, ScrollView} from 'react-native';
 import style from './style.js';
 
 import TabBar from '../components/tabBar';
@@ -23,6 +23,7 @@ export default function Contato({ navigation }) {
                 <Text style={{color: '#fff', fontWeight: 'bold', fontSize: 23, right: 160}}>Contato</Text>
             </SafeAreaView>
 
+            
             <View style={{height: 30, justifyContent: 'center', top: 12}}>
                 <Text style={{fontSize: 15 ,fontWeight: 'bold', left: 17}}>ENVIE SUA MENSAGEM</Text>
             </View>

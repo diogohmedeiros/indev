@@ -1,11 +1,19 @@
-import React, {useState} from 'react';
+import React, {useState, useMemo, useRef, useCallback} from 'react';
 import { View, Text, SafeAreaView, TextInput, TouchableOpacity, Image, Button } from 'react-native';
 import style from './style.js';
+
+import BottomSheet from '@gorhom/bottom-sheet';
 
 import TabBar from '../components/tabBar';
 
 export default function Vagas({ navigation }) {
     const [buscar, setBuscar] = useState("");
+
+    const bottomSheetRef = useRef(null);
+    const snapPoints = useMemo(() => ['5%', '50%'], []);
+    const handleSheetChanges = useCallback((index) => {
+        console.log('handleSheetChanges', index);
+    }, []);
 
     return (
         <View style={style.container}>
@@ -94,8 +102,39 @@ export default function Vagas({ navigation }) {
                         </TouchableOpacity>
                     </View>
                 </View>
-            </View>
-                <TabBar navigation={navigation} />
+                <View style={style.cards}>
+                    <Text style={{fontWeight: 'bold', fontSize: 17.5}}>NOME DA VAGA</Text>
+                    <Text style={{fontWeight: 'bold', fontSize: 15.8}}>Empresa</Text>
+                    <View style={style.row}>
+                        <Text style={{color: "#3D69FA", fontSize: 17, top: 1}}>CIDADE - UF</Text>
+                        <Text style={style.numvagas}>Nº VAGAS</Text>
+                    </View>
+                    <Text style={{fontSize: 15}}>Principais atividades do cargo. Blablablablablablablablablablablablablblabaalblalbalblablbalablablab</Text>
+                    <View style={style.salario}>
+                        <Text style={{top: 2, fontWeight: 'bold'}}>SALÁRIO: </Text>
+                        <Text style={{top: 2, fontWeight: 'bold', color: '#3D69FA'}}>R$ 1000,00</Text>
+                    </View>
+                    <View style={style.abre}>
+                        <TouchableOpacity style={{flexDirection: 'row'}}>
+                            <Text style={{fontWeight: 'bold', top: 5}}>ABRIR VAGA</Text>
+                            <Image source={require('../../assets/app/seta-para-baixo.png')} style={{width: 25, height: 25, top: 3, left: 5}}/>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </View> 
+
+            <BottomSheet
+                ref={bottomSheetRef}
+                index={1}
+                snapPoints={snapPoints}
+                onChange={handleSheetChanges}
+            >
+                <View style={style.contentContainer}>
+                <Text>Awesome 🎉</Text>
+                </View>
+            </BottomSheet>
+
+            <TabBar navigation={navigation} />
         </View>
     )
 }

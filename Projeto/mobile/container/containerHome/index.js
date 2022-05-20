@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 const Stack = createNativeStackNavigator();
 
 import Home from '../../pages/home';
+import MainDrawer from '../../pages/mainDrawer';
 
 export default function ContainerHome(){
     return (
@@ -11,6 +12,7 @@ export default function ContainerHome(){
             headerShown: false
         }}>
             <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="MainDrawer" component={MainDrawer} />
         </Stack.Navigator>
     )
 }
