@@ -201,22 +201,45 @@ const postEnderecoUsuario = (req, res) => {
     let numero = req.body.numero
     let complemento = req.body.complemento
 
+    cep = (cep === undefined) ? "NULL" : cep 
+    complemento = (complemento === undefined) ? "NULL"  : complemento
 
     if(nome_pais !== undefined && nome_estado !== undefined && nome_cidade !== undefined && nome_bairro !== undefined && nome_rua !== undefined && 
         numero !== undefined){
 
+            let string = `insert into enderecos_usuario (id_usuario, cep, nome_pais, nome_estado, nome_cidade, nome_bairro, nome_rua, numero, complemento) 
+            values(${id_usuario}, '${cep}', '${nome_pais}', '${nome_estado}', '${nome_cidade}', '${nome_bairro}', '${nome_rua}',
+            '${numero}', '${complemento}')`
 
+            con.query(string, (err,result) => {
+
+                if(err === null){
+
+                    res.status(200).json(result).end()
+
+                }else{
+                    res.status(400).json({err: err.message}).end()
+                }
+            })
+    }else{
+        res.status(400).json({"err": "preencha os campos: 'nome_pais', 'nome_estado', 'nome_cidade', 'nome_bairro', 'nome_rua', 'numero'"}).end()
     }
-
-    else{
-
-        res.status(400).json({"err": "preencha os campos: 'nome_pais', 'nome_estado', 'nome_cidade', 'nome_bairro', 'nome_rua', 'numero'"})
-    }
-
-
 }
 
+const getAllEnderecosUsuarios = (req,res) => {
 
+    let string = `select * from enderecos_usuario`
+
+    con.query(string, (err,result) => {
+
+        if(err === null){
+            res.status(200).json(result).end()
+        }else{
+            res.status(400).json({err: err.message}).end()
+        }
+    })
+
+}
 
 
 
@@ -226,5 +249,7 @@ module.exports = {
     getAllUsuarios,
     loginUsuario,
     getUsuariosNome,
-    updateUsuario
+    updateUsuario,
+    postEnderecoUsuario,
+    getAllEnderecosUsuarios
 }

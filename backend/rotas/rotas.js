@@ -9,5 +9,7 @@ route.get("/buscar_todos_usuarios", usuarios.getAllUsuarios)
 route.post("/login_usuario", usuarios.loginUsuario)
 route.get("/buscar_usuarios_nome/:nome_usuario", usuarios.getUsuariosNome)
 route.put("/atualizar_usuario", usuarios.updateUsuario)
+route.post("/cadastrar_endereco_usuario", usuarios.postEnderecoUsuario)
+route.get("/buscar_todos_enderecos_usuarios", usuarios.getAllEnderecosUsuarios)
 
 module.exports = route
