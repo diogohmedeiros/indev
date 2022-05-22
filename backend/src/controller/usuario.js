@@ -1,6 +1,27 @@
 const { con } = require("../database/connection")
 
-const postUsuario = (req,res) => {
+
+async function retornaIdEmpresa(cnpj){
+
+    return new Promise((resolve,reject) => {
+
+        let string = `select id_empresa from empresas where cnpj = '${cnpj}'`
+
+        con.query(string,(err,result) => {
+
+            if(err === null){
+                resolve(result)
+            }
+            else{
+                reject(err)
+            }
+        })
+    })
+}
+
+
+
+const postUsuario = async (req,res) => {
 
     let nome = req.body.nome
     let tipo_de_usuario = 1
@@ -15,6 +36,7 @@ const postUsuario = (req,res) => {
     let email = req.body.email
     let senha = req.body.senha
     let status = false
+    let id_empresa
 
     cnpj_empresa_atual = (cnpj_empresa_atual === undefined) ? "NULL" : cnpj_empresa_atual
     status_empresa_atual = (status_empresa_atual === undefined) ? false : status_empresa_atual
@@ -23,41 +45,106 @@ const postUsuario = (req,res) => {
     formacao = (formacao === undefined) ? "NULL" : formacao
     estado_civil = (estado_civil === undefined) ? "NULL" : estado_civil
 
-    if(nome !== undefined || telefone !== undefined || email !== undefined || senha !== undefined){
+    if(cnpj_empresa_atual !== "NULL"){
 
-        function retornaString(cpf){
+        let id = await retornaIdEmpresa(cnpj_empresa_atual)
 
-            if(cpf !== undefined){
+        if(id.length >= 1){
 
-                return `insert into usuarios (tipo_de_usuario, cnpj_empresa_atual, status_empresa_atual, foto_usuario, nome_usuario, telefone, cpf, rg, formacao, estado_civil, email, senha, status)
-                values(${tipo_de_usuario}, '${cnpj_empresa_atual}', ${status_empresa_atual}, '${foto_usuario}', '${nome}', '${telefone}', '${cpf}', '${rg}', '${formacao}', '${estado_civil}', '${email}','${senha}', ${status})`
+            id_empresa = id[0].id_empresa
+           
+            if(nome !== undefined || telefone !== undefined || email !== undefined || senha !== undefined){
+
+                function retornaString(cpf){
+        
+                    if(cpf !== undefined){
+        
+                        return `insert into usuarios (tipo_de_usuario, id_empresa, status_empresa_atual, foto_usuario, nome_usuario, telefone, cpf, rg, formacao, estado_civil, email, senha, status)
+                        values(${tipo_de_usuario}, ${id_empresa}, ${status_empresa_atual}, '${foto_usuario}', '${nome}', '${telefone}', '${cpf}', '${rg}', '${formacao}', '${estado_civil}', '${email}','${senha}', ${status})`
+                    }
+        
+                    else{
+        
+                        return `insert into usuarios (tipo_de_usuario, id_empresa, status_empresa_atual, foto_usuario, nome_usuario, telefone, rg, formacao, estado_civil, email, senha, status)
+                        values(${tipo_de_usuario}, ${id_empresa}
+                            , ${status_empresa_atual}, '${foto_usuario}', '${nome}', '${telefone}', '${rg}', '${formacao}', '${estado_civil}', '${email}','${senha}', ${status})`
+        
+                    }
+                }
+        
+                let string = retornaString(cpf)
+        
+        
+                con.query(string, (err, result) => {
+        
+                    if(err === null){
+                        res.status(200).json({result}).end()
+                    }
+                    else{
+                        res.status(400).json({err: err.message}).end()
+                    }
+                })
             }
-
             else{
-
-                return `insert into usuarios (tipo_de_usuario, cnpj_empresa_atual, status_empresa_atual, foto_usuario, nome_usuario, telefone, rg, formacao, estado_civil, email, senha, status)
-                values(${tipo_de_usuario}, '${cnpj_empresa_atual}', ${status_empresa_atual}, '${foto_usuario}', '${nome}', '${telefone}', '${rg}', '${formacao}', '${estado_civil}', '${email}','${senha}', ${status})`
-
+                res.status(400).json({"err": "informe os campos: nome, telefone, email e senha"}).end()
             }
+
+        }else{
+            res.status(400).json({"err": "cnpj não encontrado"}).end()
+            id_empresa = "NULL"
         }
-
-        let string = retornaString(cpf)
-
-
-        con.query(string, (err, result) => {
-
-            if(err === null){
-                res.status(200).json({result}).end()
-            }
-            else{
-                res.status(400).json({err: err.message}).end()
-            }
-        })
+        
     }
     else{
-        res.status(400).json({"err": "informe os campos: nome, telefone, email e senha"}).end()
-    }
+
+        id_empresa = "NULL"
+
+        if(nome !== undefined || telefone !== undefined || email !== undefined || senha !== undefined){
+
+            function retornaString(cpf){
+    
+                if(cpf !== undefined){
+    
+                    return `insert into usuarios (tipo_de_usuario, id_empresa, status_empresa_atual, foto_usuario, nome_usuario, telefone, cpf, rg, formacao, estado_civil, email, senha, status)
+                    values(${tipo_de_usuario}, ${id_empresa}, ${status_empresa_atual}, '${foto_usuario}', '${nome}', '${telefone}', '${cpf}', '${rg}', '${formacao}', '${estado_civil}', '${email}','${senha}', ${status})`
+                }
+    
+                else{
+    
+                    return `insert into usuarios (tipo_de_usuario, id_empresa, status_empresa_atual, foto_usuario, nome_usuario, telefone, rg, formacao, estado_civil, email, senha, status)
+                    values(${tipo_de_usuario}, ${id_empresa}
+                        , ${status_empresa_atual}, '${foto_usuario}', '${nome}', '${telefone}', '${rg}', '${formacao}', '${estado_civil}', '${email}','${senha}', ${status})`
+    
+                }
+            }
+    
+            let string = retornaString(cpf)
+    
+    
+            con.query(string, (err, result) => {
+    
+                if(err === null){
+                    res.status(200).json({result}).end()
+                }
+                else{
+                    res.status(400).json({err: err.message}).end()
+                }
+            })
+        }
+        else{
+            res.status(400).json({"err": "informe os campos: nome, telefone, email e senha"}).end()
+        }
+
+    }  
 }
+
+
+
+
+
+
+
+
 
 const getAllUsuarios = (req,res) => {
 
