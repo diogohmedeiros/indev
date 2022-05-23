@@ -139,16 +139,9 @@ const postUsuario = async (req,res) => {
 }
 
 
-
-
-
-
-
-
-
 const getAllUsuarios = (req,res) => {
 
-    let string = `select * from usuarios`
+    let string = `select * from vw_empresa_usuario`
 
     con.query(string, (err,result) => {
 
@@ -169,7 +162,7 @@ const loginUsuario = (req,res) => {
 
     let email = req.body.email
     let senha = req.body.senha
-    let string = `select id_usuario, cnpj_empresa_atual, status_empresa_atual, foto_usuario, nome_usuario, telefone, cpf, rg, formacao, estado_civil, email from usuarios where email = '${email}' and senha = '${senha}'`
+    let string = `select id_usuario, status_empresa_atual, foto_usuario, nome_usuario, telefone, cpf, rg, formacao, estado_civil, email from usuarios where email = '${email}' and senha = '${senha}'`
 
     if(email !== undefined && senha !== undefined){
 
@@ -195,7 +188,7 @@ const getUsuariosNome = (req,res) => {
     let nome = req.params.nome_usuario
 
     if(nome !== undefined){
-        let string = `select cnpj_empresa_atual, status_empresa_atual, foto_usuario, nome_usuario, telefone, formacao, estado_civil, email from usuarios where nome_usuario like '%${nome}%'`
+        let string = `select * from vw_empresa_usuario where nome_usuario like '%${nome}%'`
 
         con.query(string, (err,result) => {
             if(err === null){
@@ -213,7 +206,7 @@ const getUsuariosNome = (req,res) => {
 
 }
 
-const updateUsuario = (req,res) => {
+const updateUsuario = async (req,res) => {
 
     let id_usuario = req.body.id_usuario
     let cnpj_empresa_atual = req.body.cnpj_empresa_atual
@@ -225,6 +218,7 @@ const updateUsuario = (req,res) => {
     let rg = req.body.rg
     let formacao = req.body.formacao
     let estado_civil = req.body.estado_civil
+    let id_empresa
 
     cnpj_empresa_atual = (cnpj_empresa_atual === undefined) ? "NULL" : cnpj_empresa_atual
     status_empresa_atual = (status_empresa_atual === undefined) ? "NULL" : status_empresa_atual
@@ -237,7 +231,16 @@ const updateUsuario = (req,res) => {
     estado_civil = (estado_civil === undefined) ? "NULL" : estado_civil
 
 
-    let string = `update usuarios set cnpj_empresa_atual = '${cnpj_empresa_atual}', status_empresa_atual = ${status_empresa_atual}, foto_usuario = '${foto_usuario}',
+    if(cnpj_empresa_atual !== "NULL"){
+
+        id_empresa = await retornaIdEmpresa(cnpj_empresa_atual)
+    }
+    else{
+        id_empresa = "NULL"
+    }
+
+
+    let string = `update usuarios set id_empresa = ${id_empresa}, status_empresa_atual = ${status_empresa_atual}, foto_usuario = '${foto_usuario}',
     nome_usuario = '${nome}', telefone = '${telefone}', cpf = '${cpf}', rg = '${rg}', formacao = '${formacao}', estado_civil = '${estado_civil}'
     where id_usuario = ${id_usuario}`
 
