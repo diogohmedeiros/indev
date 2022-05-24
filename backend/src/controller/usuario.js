@@ -141,7 +141,7 @@ const postUsuario = async (req,res) => {
 
 const getAllUsuarios = (req,res) => {
 
-    let string = `select * from vw_empresa_usuario`
+    let string = `select * from vw_empresa_usuario02`
 
     con.query(string, (err,result) => {
 
@@ -188,7 +188,7 @@ const getUsuariosNome = (req,res) => {
     let nome = req.params.nome_usuario
 
     if(nome !== undefined){
-        let string = `select * from vw_empresa_usuario where nome_usuario like '%${nome}%'`
+        let string = `select * from vw_empresa_usuario02 where nome_usuario like '%${nome}%'`
 
         con.query(string, (err,result) => {
             if(err === null){
@@ -220,7 +220,7 @@ const updateUsuario = async (req,res) => {
     let estado_civil = req.body.estado_civil
     let id_empresa
 
-    cnpj_empresa_atual = (cnpj_empresa_atual === undefined) ? "NULL" : cnpj_empresa_atual
+    //cnpj_empresa_atual = (cnpj_empresa_atual === undefined) ? "NULL" : cnpj_empresa_atual
     status_empresa_atual = (status_empresa_atual === undefined) ? "NULL" : status_empresa_atual
     foto_usuario = (foto_usuario === undefined) ? "NULL" : foto_usuario
     nome = (nome === undefined) ? "NULL" : nome
@@ -231,30 +231,57 @@ const updateUsuario = async (req,res) => {
     estado_civil = (estado_civil === undefined) ? "NULL" : estado_civil
 
 
-    if(cnpj_empresa_atual !== "NULL"){
+    if(cnpj_empresa_atual !== undefined){
 
         id_empresa = await retornaIdEmpresa(cnpj_empresa_atual)
-    }
-    else{
-        id_empresa = "NULL"
-    }
 
 
-    let string = `update usuarios set id_empresa = ${id_empresa}, status_empresa_atual = ${status_empresa_atual}, foto_usuario = '${foto_usuario}',
-    nome_usuario = '${nome}', telefone = '${telefone}', cpf = '${cpf}', rg = '${rg}', formacao = '${formacao}', estado_civil = '${estado_civil}'
-    where id_usuario = ${id_usuario}`
+        if(id_empresa.length >= 1){
 
-    con.query(string, (err,result) => {
+            let id = id_empresa[0].id_empresa
 
-        if(err === null){
 
-            res.status(200).json(result).end()
+            let string = `update usuarios set id_empresa = ${id}, status_empresa_atual = ${status_empresa_atual}, foto_usuario = '${foto_usuario}',
+                            nome_usuario = '${nome}', telefone = '${telefone}', cpf = '${cpf}', rg = '${rg}', formacao = '${formacao}', estado_civil = '${estado_civil}'
+                            where id_usuario = ${id_usuario}`
+
+            con.query(string, (err,result) => {
+
+                if(err === null){
+
+                    res.status(200).json(result).end()
+
+                }else{
+
+                    res.status(400).json({err: err.message}).end()
+                }
+            })
 
         }else{
-
-            res.status(400).json({err: err.message}).end()
+            res.status(400).json({"err": "cnpj não encontrado"}).end()
         }
-    })
+    }
+    else{
+
+        let string = `update usuarios set status_empresa_atual = ${status_empresa_atual}, foto_usuario = '${foto_usuario}',
+                            nome_usuario = '${nome}', telefone = '${telefone}', cpf = '${cpf}', rg = '${rg}', formacao = '${formacao}', estado_civil = '${estado_civil}'
+                            where id_usuario = ${id_usuario}`
+
+            con.query(string, (err,result) => {
+
+                if(err === null){
+
+                    res.status(200).json(result).end()
+
+                }else{
+
+                    res.status(400).json({err: err.message}).end()
+                }
+            })
+    }
+
+
+    
 
 }
 
@@ -356,7 +383,6 @@ const getEnderecosUsuarios = (req,res) => {
         res.status(400).json({"err": "informe o nome do usuario"}).end()
     }
 }
-
 
 
 module.exports = {
