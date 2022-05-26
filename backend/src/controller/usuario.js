@@ -203,7 +203,36 @@ const getUsuariosNome = (req,res) => {
         res.status(400).json({"err": "informe o nome do usuario"}).end()
     }
 
+}
 
+const getUsuariosCPF = (req,res) => {
+
+    let cpf = req.params.cpf
+
+    if(cpf !== undefined){
+
+        let string = `select * from vw_empresa_usuario02 where cpf = '${cpf}'`
+
+        con.query(string, (err, result) => {
+
+                if(err === null){
+
+                    if(result.length <= 0){
+                        res.status(200).json({"err": "cpf não encontrado"}).end()
+                    }else{
+                        res.status(200).json(result).end()
+                    }
+
+                
+                }else{
+                    res.status(400).json({err: err.message}).end()
+                }
+        })
+
+    }else{
+
+        res.status(400).json({"err": "informe o cpf"}).end()
+    }
 }
 
 const updateUsuario = async (req,res) => {
@@ -278,10 +307,7 @@ const updateUsuario = async (req,res) => {
                     res.status(400).json({err: err.message}).end()
                 }
             })
-    }
-
-
-    
+    }  
 
 }
 
@@ -385,13 +411,52 @@ const getEnderecosUsuarios = (req,res) => {
 }
 
 
+const updateEnderecoUsuario = (req,res) => {
+
+    let nome_pais = req.body.nome_pais
+    let nome_estado = req.body.nome_estado
+    let nome_cidade = req.body.nome_cidade
+    let nome_bairro = req.body.nome_pais
+    let nome_rua = req.body.nome_rua
+    let numero = req.body.numero
+    let id_usuario = req.body.id_usuario
+
+
+    if(nome_pais !== undefined && nome_estado !== undefined && nome_cidade !== undefined
+        && nome_bairro !== undefined && nome_rua !== undefined && numero !== undefined && id_usuario !== undefined){
+
+            
+        let string = `update enderecos_usuario set nome_pais = '${nome_pais}', nome_estado = '${nome_estado}', nome_cidade = '${nome_cidade}', nome_bairro = '${nome_bairro}', nome_rua = '${nome_rua}',numero = '${numero}' where id_usuario = ${id_usuario}`
+
+            con.query(string, (err,result) => {
+                if(err === null){
+                    res.status(200).json(result).end()
+                }else{
+                    res.status(400).json({err: err.message}).end()
+                }
+
+            })
+
+
+    }else{
+        res.status(400).json({"err": "informe os campos nome_pais, nome_estado, nome_cidade, nome_bairro, nome_rua, numero, id_usuario"}).end()
+    }
+
+
+
+}
+
+
+
 module.exports = {
 
     postUsuario,
     getAllUsuarios,
     loginUsuario,
     getUsuariosNome,
+    getUsuariosCPF,
     updateUsuario,
     postEnderecoUsuario,
-    getAllEnderecosUsuarios
+    getAllEnderecosUsuarios, 
+    updateEnderecoUsuario
 }
