@@ -139,9 +139,11 @@ const postUsuario = async (req,res) => {
 }
 
 
+
+
 const getAllUsuarios = (req,res) => {
 
-    let string = `select * from vw_empresa_usuario02`
+    let string = `select * from usuarios`
 
     con.query(string, (err,result) => {
 
@@ -188,7 +190,7 @@ const getUsuariosNome = (req,res) => {
     let nome = req.params.nome_usuario
 
     if(nome !== undefined){
-        let string = `select * from vw_empresa_usuario02 where nome_usuario like '%${nome}%'`
+        let string = `select * from usuarios where nome_usuario like '%${nome}%'`
 
         con.query(string, (err,result) => {
             if(err === null){
@@ -211,7 +213,7 @@ const getUsuariosCPF = (req,res) => {
 
     if(cpf !== undefined){
 
-        let string = `select * from vw_empresa_usuario02 where cpf = '${cpf}'`
+        let string = `select * from usuarios where cpf = '${cpf}'`
 
         con.query(string, (err, result) => {
 
@@ -371,7 +373,7 @@ const postEnderecoUsuario = (req, res) => {
 
 const getAllEnderecosUsuarios = (req,res) => {
 
-    let string = `select * from enderecos_usuario`
+    let string = `select * from vw_endereco_usuario`
 
     con.query(string, (err,result) => {
 
@@ -436,14 +438,9 @@ const updateEnderecoUsuario = (req,res) => {
                 }
 
             })
-
-
     }else{
         res.status(400).json({"err": "informe os campos nome_pais, nome_estado, nome_cidade, nome_bairro, nome_rua, numero, id_usuario"}).end()
     }
-
-
-
 }
 
 
@@ -458,5 +455,6 @@ module.exports = {
     updateUsuario,
     postEnderecoUsuario,
     getAllEnderecosUsuarios, 
-    updateEnderecoUsuario
+    updateEnderecoUsuario,
+    getEnderecosUsuarios
 }

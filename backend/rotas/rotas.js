@@ -13,6 +13,7 @@ route.put("/atualizar_usuario", usuarios.updateUsuario)
 
 route.post("/cadastrar_endereco_usuario", usuarios.postEnderecoUsuario)
 route.get("/buscar_todos_enderecos_usuarios", usuarios.getAllEnderecosUsuarios)
+route.get("/buscar_nome_endereco_usuario/:nome", usuarios.getEnderecosUsuarios)
 route.put("/alterar_endereco_usuario", usuarios.updateEnderecoUsuario)
 
 
