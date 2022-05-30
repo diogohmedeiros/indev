@@ -69,7 +69,7 @@ CREATE TABLE usuarios(
 
 	id_usuario INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	tipo_de_usuario INTEGER NOT NULL,
-	id_empresa INTEGER,
+	id_empresa_atual INTEGER,
 	status_empresa_atual BOOLEAN NOT NULL,
 	foto_usuario LONGTEXT,
 	nome_usuario VARCHAR(50) NOT NULL,

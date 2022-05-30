@@ -20,7 +20,7 @@ export default StyleSheet.create({
         borderWidth: 2,
         borderColor: '#fff',
         width: 330,
-        borderRadius: 50,
+        borderRadius: 10,
         padding:4,
         paddingLeft: 10,
         margin: 6,
@@ -47,7 +47,7 @@ export default StyleSheet.create({
         padding: 8,
         alignItems: "center",
         backgroundColor: "#000",
-        borderRadius: 50,
+        borderRadius: 10,
         top: 50,
         marginLeft: 40
     },

@@ -7,12 +7,12 @@ USE indev;
 
 CREATE TABLE empresas(
 
-	id_empresa INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	cnpj VARCHAR(25) NOT NULL PRIMARY KEY UNIQUE,
+	-- id_empresa INTEGER NOT NULL AUTO_INCREMENT,-- 
 	tipo_de_usuario INTEGER NOT NULL,
 	foto_de_perfil_empresa LONGTEXT,
 	nome_empresa VARCHAR(30) NOT NULL,
 	telefone VARCHAR(20) NOT NULL UNIQUE,
-	cnpj VARCHAR(25) NOT NULL UNIQUE,
 	email VARCHAR(30) NOT NULL UNIQUE,
 	senha VARCHAR(100) NOT NULL
 );
@@ -20,7 +20,7 @@ CREATE TABLE empresas(
 CREATE TABLE vagas(
 
 	id_vaga INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	id_empresa INTEGER NOT NULL,
+	cnpj_empresa VARCHAR(25) NOT NULL,
 	cidade VARCHAR(30) NOT NULL,
 	cargo VARCHAR(30) NOT NULL,
 	salario DECIMAL(5,2),
@@ -30,14 +30,14 @@ CREATE TABLE vagas(
 	data_encerra_vaga DATE NOT NULL,
 	email_de_contato VARCHAR(30) NOT NULL,
 	
-	CONSTRAINT fk_vaga FOREIGN KEY (id_empresa) REFERENCES empresas(id_empresa) ON DELETE CASCADE ON UPDATE CASCADE
+	CONSTRAINT fk_vaga FOREIGN KEY (cnpj_empresa) REFERENCES empresas(cnpj) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
 CREATE TABLE publicacoes(
 
 	id_publicacao INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	id_empresa INTEGER NOT NULL,
+	cnpj_empresa VARCHAR(25) NOT NULL,
 	data_de_publicacao DATE NOT NULL,
 	data_de_alteracao DATE,
 	nome_publicador VARCHAR(50) NOT NULL,
@@ -46,13 +46,13 @@ CREATE TABLE publicacoes(
 	email_de_contato VARCHAR(30),
 	coteudo VARCHAR(400),
 	
-	CONSTRAINT fk_publicacao FOREIGN KEY (id_empresa) REFERENCES empresas(id_empresa) ON DELETE CASCADE ON UPDATE CASCADE
+	CONSTRAINT fk_publicacao FOREIGN KEY (cnpj_empresa) REFERENCES empresas(cnpj) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE enderecos_empresa(
 
 	id_empresa_emp INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	id_empresa INTEGER NOT NULL,
+	cnpj_empresa VARCHAR(25) NOT NULL,
 	cep VARCHAR(20),
 	nome_pais VARCHAR(25) NOT NULL,
 	nome_estado VARCHAR(25) NOT NULL,
@@ -62,14 +62,14 @@ CREATE TABLE enderecos_empresa(
 	numero VARCHAR(5) NOT NULL,
 	complemento VARCHAR(30),
 	
-	CONSTRAINT fk_end_emp FOREIGN KEY (id_empresa) REFERENCES empresas(id_empresa) ON DELETE CASCADE ON UPDATE CASCADE
+	CONSTRAINT fk_end_emp FOREIGN KEY (cnpj_empresa) REFERENCES empresas(cnpj) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE usuarios(
 
 	id_usuario INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	tipo_de_usuario INTEGER NOT NULL,
-	id_empresa INTEGER,
+	cnpj_empresa_atual VARCHAR(25),
 	status_empresa_atual BOOLEAN NOT NULL,
 	foto_usuario LONGTEXT,
 	nome_usuario VARCHAR(50) NOT NULL,
@@ -82,7 +82,7 @@ CREATE TABLE usuarios(
 	senha VARCHAR(100) NOT NULL,
 	status BOOLEAN NOT NULL,
 	
-	CONSTRAINT fk_empresa FOREIGN KEY (id_empresa) REFERENCES empresas(id_empresa) ON DELETE CASCADE ON UPDATE CASCADE
+	CONSTRAINT fk_usuario_cnpj FOREIGN KEY (cnpj_empresa_atual) REFERENCES empresas(cnpj) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
@@ -99,10 +99,10 @@ CREATE TABLE curriculos(
 CREATE TABLE relac_curriculo_emp(
 
 	id_curriculo INTEGER NOT NULL,
-	id_empresa INTEGER NOT NULL,
+	cnpj_empresa VARCHAR(25) NOT NULL,
 	
 	CONSTRAINT fk_relac_curriculo FOREIGN KEY (id_curriculo) REFERENCES curriculos(id_curriculo) ON DELETE CASCADE ON UPDATE CASCADE,
-	CONSTRAINT fk_relac_empresa FOREIGN KEY (id_empresa) REFERENCES empresas(id_empresa) ON DELETE CASCADE ON UPDATE CASCADE
+	CONSTRAINT fk_relac_empresa FOREIGN KEY (cnpj_empresa) REFERENCES empresas(cnpj) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE enderecos_usuario(
@@ -123,12 +123,12 @@ CREATE TABLE enderecos_usuario(
 CREATE TABLE indicacoes(
 	id_indicacao INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	id_indicador INTEGER NOT NULL,
-	id_empresa_indicador INTEGER NOT NULL,
+	cnpj_empresa VARCHAR(25) NOT NULL,
 	id_indicado INTEGER NOT NULL,
 	
 	CONSTRAINT fk_indicador FOREIGN KEY (id_indicador) REFERENCES usuarios(id_usuario) ON DELETE CASCADE ON UPDATE CASCADE,
 	CONSTRAINT fk_indicado FOREIGN KEY (id_indicado) REFERENCES usuarios(id_usuario) ON DELETE CASCADE ON UPDATE CASCADE,
-	CONSTRAINT fk_id_empresa FOREIGN KEY (id_empresa_indicador) REFERENCES empresas(id_empresa) ON DELETE CASCADE ON UPDATE CASCADE
+	CONSTRAINT fk_id_empresa FOREIGN KEY (cnpj_empresa) REFERENCES empresas(cnpj) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 

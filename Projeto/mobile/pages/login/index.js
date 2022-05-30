@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ImageBackground, View, Text, TextInput, ToastAndroid, TouchableOpacity, Image } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import style from './style.js';
 
 const image = {uri: "https://github.com/diogohmedeiros/indev/blob/main/Projeto/assets/banner-1.png?raw=true"}
@@ -8,7 +9,7 @@ export default function Login({ navigation }) {
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
     const [nome, setNome] = useState("");
-    const [data, setData] = useState("");
+    const [telefone, setTelefone] = useState("");
 
     const [cadastro, setCadastro] = useState(false);
 
@@ -18,7 +19,7 @@ export default function Login({ navigation }) {
             senha: senha
         }
 
-        fetch('http://10.87.207.6:8080/api/login', {
+        fetch('http://10.87.207.27:3000/login_usuario', {
             "method":"POST",
             "headers": {
                 "Content-Type": "application/json"
@@ -33,7 +34,7 @@ export default function Login({ navigation }) {
         .then(data => {
             if(data != undefined){
                 AsyncStorage.setItem('userdata', JSON.stringify(data[0]));
-                navigation.navigate("Main");
+                navigation.navigate("Home");
             }else{
                 ToastAndroid.show('Email ou Senha Inválidos', ToastAndroid.SHORT);
             }
@@ -48,11 +49,11 @@ export default function Login({ navigation }) {
         let user = {
             nome: nome,
             email: email,
-            data_nascimento: data,
+            telefone: telefone,
             senha: senha,
         }
 
-        fetch("http://10.87.207.6:8080/api/cadastro", {
+        fetch("http://10.87.207.27:3000/cadastrar_usuario", {
             "method":"POST",
             "headers": {
                 "Content-Type":"application/json"
@@ -69,7 +70,7 @@ export default function Login({ navigation }) {
                 setCadastro(false);
             } else {
                 AsyncStorage.setItem('userdata', JSON.stringify(data));
-                navigation.navigate("Main");
+                navigation.navigate("Home");
             }
         });
     }
@@ -106,10 +107,10 @@ export default function Login({ navigation }) {
                                 style={style.textInput}
                             />
                             <TextInput 
-                                value={data} 
-                                onChangeText={setData} 
+                                value={telefone} 
+                                onChangeText={setTelefone}  
                                 placeholderTextColor={'#ced4da'} 
-                                placeholder={"Data de Nascimento"} 
+                                placeholder={"Telefone"} 
                                 style={style.textInput} 
                             />
                             <TouchableOpacity onPress={() => cadastrar() } style={[style.button, style.boxWithShadow]}>

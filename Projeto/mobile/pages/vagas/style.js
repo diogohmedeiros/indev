@@ -7,20 +7,20 @@ export default StyleSheet.create({
     },
     header: {
         height: 115,
-        backgroundColor: '#3D69FA',
+        backgroundColor: '#3757BE',
         alignItems: 'center', 
         justifyContent: 'center',
         flexDirection: 'row',
-        
+        borderBottomLeftRadius: 20,
+        borderBottomRightRadius: 20
     },
     search: {
         borderWidth: 2,
         borderColor: '#fff',
-        borderRadius: 50,
-        width: 300,
+        borderRadius: 12,
+        width: 280,
         padding: 4,
         paddingLeft: 10,
-        left: 10,
         backgroundColor: 'rgba(0, 0, 0, 0.2)',
         color: 'white',
         fontWeight: 'bold',
@@ -37,6 +37,7 @@ export default StyleSheet.create({
     },
     contvagas: {
         alignItems: 'center',
+        flex: 6
     },
     row: {
         flexDirection: 'row',
@@ -56,5 +57,9 @@ export default StyleSheet.create({
     abre: {
         alignItems: 'center',
         top: 14,
+    },
+    contentContainer: {
+        flex: 1,
+        alignItems: 'center',
     }
 })
