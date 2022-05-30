@@ -2,6 +2,7 @@ const express = require('express')
 
 const route = express.Router()
 const usuarios = require("../src/controller/usuario")
+const empresas = require("../src/controller/empresa")
 
 // rotas relacionadas a tabela usuario
 route.post("/cadastrar_usuario", usuarios.postUsuario)
@@ -15,6 +16,9 @@ route.post("/cadastrar_endereco_usuario", usuarios.postEnderecoUsuario)
 route.get("/buscar_todos_enderecos_usuarios", usuarios.getAllEnderecosUsuarios)
 route.get("/buscar_nome_endereco_usuario/:nome", usuarios.getEnderecosUsuarios)
 route.put("/alterar_endereco_usuario", usuarios.updateEnderecoUsuario)
+
+
+route.post("/cadastrar_empresa", empresas.postEmpresa)
 
 
 module.exports = route
