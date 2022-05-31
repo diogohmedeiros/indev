@@ -17,10 +17,13 @@ route.get("/buscar_todos_enderecos_usuarios", usuarios.getAllEnderecosUsuarios)
 route.get("/buscar_nome_endereco_usuario/:nome", usuarios.getEnderecosUsuarios)
 route.put("/alterar_endereco_usuario", usuarios.updateEnderecoUsuario)
 
-
+// rotas relacionadas à tabela empresa
 route.post("/cadastrar_empresa", empresas.postEmpresa)
+route.post("/empresa/login", empresas.loginEmpresa)
 route.get("/buscar_all_empresas", empresas.getAllEmpresas)
 route.get("/buscar_empresa_cnpj/:cnpj" , empresas.getCNPJEmpresa)
 route.get("/buscar_empresa_nome/:nome_empresa", empresas.getNomeEmpresa)
+route.put("/update_empresa", empresas.updateEmpresa)
+
 
 module.exports = route

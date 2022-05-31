@@ -34,6 +34,21 @@ CREATE TABLE vagas(
 );
 
 
+CREATE TABLE beneficios(
+
+	id_beneficio INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	descricao VARCHAR(25) NOT NULL
+);
+
+CREATE TABLE relac_benef_vaga(
+
+	id_vaga INTEGER NOT NULL,
+	id_beneficio INTEGER NOT NULL,
+	
+	CONSTRAINT fk_vaga02 FOREIGN KEY (id_vaga) REFERENCES vagas (id_vaga) ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT fk_beneficio FOREIGN KEY (id_beneficio) REFERENCES beneficios (id_beneficio) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
 CREATE TABLE publicacoes(
 
 	id_publicacao INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -174,6 +189,14 @@ INSERT INTO parentesco values
 	(DEFAULT, "Marido"),
 	(DEFAULT, "Esposa"),
 	(DEFAULT, "Noivo(a)");
+	
+INSERT INTO beneficios values
+	(DEFAULT, "Vale transporte"),
+	(DEFAULT, "Vale alimentação"),
+	(DEFAULT, "Vale refeição"),
+	(DEFAULT, "Vale farmácia"),
+	(DEFAULT, "Plano médico"),
+	(DEFAULT, "Plano Odontológico");
 
 
 
