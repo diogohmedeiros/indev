@@ -19,6 +19,8 @@ route.put("/alterar_endereco_usuario", usuarios.updateEnderecoUsuario)
 
 
 route.post("/cadastrar_empresa", empresas.postEmpresa)
-
+route.get("/buscar_all_empresas", empresas.getAllEmpresas)
+route.get("/buscar_empresa_cnpj/:cnpj" , empresas.getCNPJEmpresa)
+route.get("/buscar_empresa_nome/:nome_empresa", empresas.getNomeEmpresa)
 
 module.exports = route
