@@ -3,6 +3,7 @@ const express = require('express')
 const route = express.Router()
 const usuarios = require("../src/controller/usuario")
 const empresas = require("../src/controller/empresa")
+const vagas = require("../src/controller/vagas")
 
 // rotas relacionadas a tabela usuario
 route.post("/cadastrar_usuario", usuarios.postUsuario)
@@ -24,6 +25,8 @@ route.get("/buscar_all_empresas", empresas.getAllEmpresas)
 route.get("/buscar_empresa_cnpj/:cnpj" , empresas.getCNPJEmpresa)
 route.get("/buscar_empresa_nome/:nome_empresa", empresas.getNomeEmpresa)
 route.put("/update_empresa", empresas.updateEmpresa)
+
+route.post("/cadastrar_vaga", vagas.postVaga)
 
 
 module.exports = route
