@@ -7,8 +7,8 @@ import {StatusBar} from 'react-native';
 
 const Stack = createNativeStackNavigator();
 
-import Login from './pages/login';
-import MainDrawer from './pages/mainDrawer';
+import Login from './pages/login/login';
+import MainDrawer from './pages/mainDrawer/drawer';
 
 export default function App() {
   return (
@@ -17,7 +17,7 @@ export default function App() {
       <Stack.Navigator screenOptions={{
         headerShown: false,
       }}>
-        {/* <Stack.Screen name="Login" component={Login} /> */}
+        <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="MainDrawer" component={MainDrawer} />
       </Stack.Navigator>
     </NavigationContainer>
