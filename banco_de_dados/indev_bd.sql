@@ -30,6 +30,7 @@ CREATE TABLE vagas(
 	data_encerra_vaga DATE NOT NULL,
 	email_de_contato VARCHAR(30) NOT NULL,
 	status_vaga NOT NULL,
+	requisitos VARCHAR(400),
 	
 	CONSTRAINT fk_vaga FOREIGN KEY (id_empresa) REFERENCES empresas(id_empresa) ON DELETE CASCADE ON UPDATE CASCADE
 );

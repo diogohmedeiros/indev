@@ -29,5 +29,8 @@ route.put("/update_empresa", empresas.updateEmpresa)
 
 route.post("/cadastrar_vaga", vagas.postVaga)
 route.get("/buscar_todas_vagas", vagas.getAllVagas)
+route.get("/buscar_vaga_id/:id_vaga", vagas.getVagaId)
+route.get("/buscar_vaga_id_empresa/:id_empresa", vagas.getVagaIDEmpresa)
+route.get("/buscar_vaga_nome_empresa/:nome_empresa", vagas.getVagaNomeEmpresa)
 
 module.exports = route
