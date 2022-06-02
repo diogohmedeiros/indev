@@ -23,12 +23,13 @@ CREATE TABLE vagas(
 	id_empresa INTEGER NOT NULL,
 	cidade VARCHAR(30) NOT NULL,
 	cargo VARCHAR(30) NOT NULL,
-	salario DECIMAL(5,2),
+	salario DECIMAL(9,2),
 	descricao VARCHAR(400),
 	expediente VARCHAR(100),
 	data_de_publicacao DATE NOT NULL,
 	data_encerra_vaga DATE NOT NULL,
 	email_de_contato VARCHAR(30) NOT NULL,
+	status_vaga NOT NULL,
 	
 	CONSTRAINT fk_vaga FOREIGN KEY (id_empresa) REFERENCES empresas(id_empresa) ON DELETE CASCADE ON UPDATE CASCADE
 );

@@ -207,6 +207,28 @@ const getUsuariosNome = (req,res) => {
 
 }
 
+const getUsuarioId = (req,res) => {
+
+    let id_usuario = req.params.id_usuario
+
+    if(id_usuario !== undefined){
+
+        let string = `select id_usuario, tipo_de_usuario, id_empresa, status_empresa_atual, foto_usuario, nome_usuario, telefone, cpf, rg, formacao, estado_civil, email
+        from usuarios where id_usuario = ${id_usuario}`
+
+        con.query(string, (err,result) => {
+            if(err === null){
+                res.status(200).json(result).end()
+            }else{
+                res.status(400).json({err: err.message}).end()
+            }
+        })
+
+    }else{
+        res.status(400).json({"err": "informe o id_usuario"}).end()
+    }
+}
+
 const getUsuariosCPF = (req,res) => {
 
     let cpf = req.params.cpf
@@ -451,6 +473,7 @@ module.exports = {
     getAllUsuarios,
     loginUsuario,
     getUsuariosNome,
+    getUsuarioId,
     getUsuariosCPF,
     updateUsuario,
     postEnderecoUsuario,

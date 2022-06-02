@@ -27,7 +27,6 @@ function deletarErrorVaga(string){
         }
     })
 
-
 }
 
 
@@ -64,8 +63,8 @@ const postVaga = (req,res) => {
 
         if(cidade !== undefined){
 
-            let string = `insert into vagas (id_empresa, cidade, cargo, salario, descricao, expediente, data_de_publicacao, data_encerra_vaga, email_de_contato) 
-            values(${id_empresa}, '${cidade}', '${cargo}', '${salario}', '${descricao}', '${expediente}', curdate(), '${data_encerramento_vaga}', '${email_de_contato}')`
+            let string = `insert into vagas (id_empresa, cidade, cargo, salario, descricao, expediente, data_de_publicacao, data_encerra_vaga, email_de_contato, status_vaga) 
+            values(${id_empresa}, '${cidade}', '${cargo}', '${salario}', '${descricao}', '${expediente}', curdate(), '${data_encerramento_vaga}', '${email_de_contato}', false)`
 
             con.query(string, async (err,result) => {
     
@@ -122,8 +121,87 @@ const postVaga = (req,res) => {
             })
     
         }else{
-            console.log("cidade não informada")
-    
+           
+            let queryCidadeEmpresa = `select nome_cidade from enderecos_empresa where id_empresa = ${id_empresa}`
+
+            let n_cidade
+
+            con.query(queryCidadeEmpresa, (err,result) => {
+
+                if(err === null){
+
+                    if(result.length > 0){
+
+                        n_cidade = result[0].nome_cidade
+
+                        console.log(n_cidade)
+
+                        let string = `insert into vagas (id_empresa, cidade, cargo, salario, descricao, expediente, data_de_publicacao, data_encerra_vaga, email_de_contato, status_vaga) 
+                        values(${id_empresa}, '${n_cidade}', '${cargo}', '${salario}', '${descricao}', '${expediente}', curdate(), '${data_encerramento_vaga}', '${email_de_contato}', false)`
+
+                    con.query(string, async (err,result) => {
+            
+                        if(err === null){
+            
+                            id_vaga = result.insertId
+
+                            if(beneficios.length > 0){
+
+                                try{
+
+                                    con.beginTransaction()
+
+                                    do{
+
+                                        query = `insert into relac_benef_vaga (id_vaga, id_beneficio) values (${id_vaga}, ${beneficios[index]})`
+
+
+                                        let resposta = await postBeneficios(query)
+                                        .then(() => {
+
+                                            if (index + 1 === beneficios.length) {
+                                                comerro = true;
+
+                                            }
+                                        }).catch((err) => {
+                                            let desfazer = deletarErrorVaga()
+                                            console.log(desfazer)
+                                            con.rollback()
+                                            res.status(400).json({ err }).end()
+                                            comerro = true
+                                        })
+                                        index++
+                                    }while(!comerro)
+            
+                                }
+                                catch(erro){
+
+                                    res.status(400).json({erro: erro.message}).end()
+                                }
+                            
+                            }else{
+
+                                res.status(200).json(result).end()
+                            }
+
+                            res.status(200).json(result).end()
+
+
+                        }else{
+                            res.status(400).json({err: err.message}).end()
+                        }
+            
+                    })
+
+                    }else{
+                        res.status(400).json({"err": "informe o nome da ciadade"}).end()
+                    }
+
+                }else{
+                    res.status(400).json({err: err.message}).end()
+                }
+            })
+  
         }
 
     }else{
@@ -132,11 +210,28 @@ const postVaga = (req,res) => {
 
 }
 
+const getAllVagas = (req,res) => {
 
+    let string = `select * from vw_vaga`
+
+    con.query(string, (err,result) => {
+        if(err === null){
+            res.status(200).json(result).end()
+        }else{
+            res.status(400).json({err: err.message}).end()
+        }
+    })
+}
+
+const getVagaId = (req,res) => {
+
+    let id_vaga 
+}
 
 
 
 module.exports = {
 
-    postVaga
+    postVaga,
+    getAllVagas
 }
