@@ -214,11 +214,66 @@ const postVaga = (req,res) => {
 
 const getAllVagas = (req,res) => {
 
-    let string = `select * from vw_vaga_02`
+    let string = `select * from vw_vaga_02 where status_vaga = 0`
 
     con.query(string, (err,result) => {
         if(err === null){
-            res.status(200).json(result).end()
+          
+           if(result.length == 0) res.status(200).json({"err": "vaga não encontrada"}).end();
+           else {
+               
+            let ar = new Array()
+            let obj = {}
+            let id_vaga = 0 
+            let beneficios = new Array()
+
+            result.forEach((item,index) => {
+                
+                if(id_vaga === 0){
+                    
+                    if(index === 0){
+                    obj = item
+                    id_vaga = item.id_vaga
+                    beneficios.push(item.beneficio)
+                    
+                    obj.beneficio = beneficios
+                    
+
+                    }
+                }
+                
+                else{
+                    
+                    if(id_vaga === item.id_vaga){
+                        id_vaga = item.id_vaga
+                        beneficios.push(item.beneficio)
+                        obj.beneficio = beneficios
+                    }else{
+                       
+                        beneficios = new Array()
+                        ar.push(obj)
+
+                        obj = item
+                        
+                        id_vaga = item.id_vaga
+                        
+                        beneficios.push(item.beneficio)
+
+                        console.log(beneficios)
+                        
+                        obj.beneficio = beneficios
+                    
+                        
+                    }
+                    
+                }	
+                  
+            })
+
+            res.status(200).json(ar).end()
+              // ///////////////////////////////
+           }
+
         }else{
             res.status(400).json({err: err.message}).end()
         }
@@ -231,11 +286,22 @@ const getVagaId = (req,res) => {
 
     if(id_vaga !== undefined){
        
-        let string = `select * from vw_vaga_02 where id_vaga = ${id_vaga}`
+        let string = `select * from vw_vaga_02 where id_vaga = ${id_vaga} and status_vaga = 0`
 
         con.query(string, (err,result) => {
             if(err === null){
-                res.status(200).json(result).end()
+                //res.status(200).json(result).end()
+                if(result.length == 0) res.status(200).json({"err": "vaga não encontrada"}).end();
+                else {
+                    let vagaret = {};
+                    let beneficios = new Array();
+                    result.forEach((vaga, index) => {
+                        if(index == 0) vagaret = vaga;
+                        beneficios.push(vaga.beneficio);
+                    })
+                    vagaret.beneficio = beneficios;
+                    res.status(200).json(vagaret).end();
+                }
             }else{
                 res.status(400).json({err: err.message}).end()
             }
@@ -251,13 +317,61 @@ const getVagaIDEmpresa = (req,res) => {
     
     if(id_empresa !== undefined){
 
-        let string = `select * from vw_vaga_02 where id_empresa = ${id_empresa}`
+        let string = `select * from vw_vaga_02 where id_empresa = ${id_empresa} and status_vaga = 0`
 
         con.query(string, (err,result) => {
 
             if(err === null){
                 if(result.length > 0){
-                    res.status(200).json(result).end()
+                 
+                    let ar = new Array()
+                    let obj = {}
+                    let id_vaga = 0 
+                    let beneficios = new Array()
+
+                    result.forEach((item,index) => {
+                        
+                        if(id_vaga === 0){
+                            
+                            if(index === 0){
+                            obj = item
+                            id_vaga = item.id_vaga
+                            beneficios.push(item.beneficio)
+                            
+                            obj.beneficio = beneficios
+                            
+                            }
+                        }
+                        
+                        else{
+                            
+                            if(id_vaga === item.id_vaga){
+                                id_vaga = item.id_vaga
+                                beneficios.push(item.beneficio)
+                                obj.beneficio = beneficios
+                            }else{
+                            
+                                beneficios = new Array()
+                                ar.push(obj)
+
+                                obj = item
+                                
+                                id_vaga = item.id_vaga
+                                
+                                beneficios.push(item.beneficio)
+
+                                console.log(beneficios)
+                                
+                                obj.beneficio = beneficios
+                            
+                                
+                            }
+                            
+                        }	
+                        
+                    })
+
+                    res.status(200).json(ar).end()
                 }else{
                     res.status(400).json({"err": "sem resultados"}).end()
                 }
@@ -278,13 +392,65 @@ const getVagaNomeEmpresa = (req,res) => {
     
     if(nome_empresa !== undefined){
 
-        let string = `select * from vw_vaga_02 where nome_empresa like '%${nome_empresa}%'`
+        let string = `select * from vw_vaga_02 where nome_empresa like '%${nome_empresa}%' and status_vaga = 0`
 
         con.query(string, (err,result) => {
 
             if(err === null){
                 if(result.length > 0){
-                    res.status(200).json(result).end()
+                    // res.status(200).json(result).end()
+                    
+                    let ar = new Array()
+                    let obj = {}
+                    let id_vaga = 0 
+                    let beneficios = new Array()
+
+                    result.forEach((item,index) => {
+                        
+                        if(id_vaga === 0){
+                            
+                            if(index === 0){
+                            obj = item
+                            id_vaga = item.id_vaga
+                            beneficios.push(item.beneficio)
+                            
+                            obj.beneficio = beneficios
+                            
+
+                            }
+                        }
+                        
+                        else{
+                            
+                            if(id_vaga === item.id_vaga){
+                                id_vaga = item.id_vaga
+                                beneficios.push(item.beneficio)
+                                obj.beneficio = beneficios
+                            }else{
+                            
+                                beneficios = new Array()
+                                ar.push(obj)
+
+                                obj = item
+                                
+                                id_vaga = item.id_vaga
+                                
+                                beneficios.push(item.beneficio)
+
+                                console.log(beneficios)
+                                
+                                obj.beneficio = beneficios
+                            
+                                
+                            }
+                            
+                        }	
+                        
+                    })
+
+                    res.status(200).json(ar).end()
+             
+
                 }else{
                     res.status(400).json({"err": "sem resultados"}).end()
                 }
@@ -300,6 +466,29 @@ const getVagaNomeEmpresa = (req,res) => {
 
 }
 
+const encerrarVaga = (req,res) => {
+
+    let status_vaga = req.body.status_vaga
+    let id_vaga = req.body.id_vaga
+
+    if(id_vaga !== undefined && status_vaga !== undefined){
+
+        let string = `update vagas set status_vaga = ${status_vaga} where id_vaga = ${id_vaga}`
+
+        con.query(string, (err,result) => {
+            if(err === null){
+                res.status(200).json(result).end()
+            }else{
+                res.status(400).json({err: err.message}).end()
+            }
+        })
+
+    }else{
+        res.status(400).json({"err": "informe o id_vaga e o status_vaga"}).end()
+    }
+
+}
+
 
 
 module.exports = {
@@ -308,5 +497,6 @@ module.exports = {
     getAllVagas,
     getVagaId,
     getVagaIDEmpresa,
-    getVagaNomeEmpresa
+    getVagaNomeEmpresa,
+    encerrarVaga
 }
