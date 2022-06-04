@@ -229,6 +229,7 @@ const getAllVagas = (req,res) => {
 
             result.forEach((item,index) => {
                 
+
                 if(id_vaga === 0){
                     
                     if(index === 0){
@@ -238,7 +239,7 @@ const getAllVagas = (req,res) => {
                     
                     obj.beneficio = beneficios
                     
-
+                    ar.push(obj)
                     }
                 }
                 
@@ -248,22 +249,22 @@ const getAllVagas = (req,res) => {
                         id_vaga = item.id_vaga
                         beneficios.push(item.beneficio)
                         obj.beneficio = beneficios
+
+                    
                     }else{
                        
                         beneficios = new Array()
-                        ar.push(obj)
+                       
 
                         obj = item
                         
                         id_vaga = item.id_vaga
                         
                         beneficios.push(item.beneficio)
-
-                        console.log(beneficios)
                         
                         obj.beneficio = beneficios
                     
-                        
+                        ar.push(obj)
                     }
                     
                 }	
