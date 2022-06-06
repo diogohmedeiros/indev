@@ -39,6 +39,7 @@ const postVaga = (req,res) => {
     let salario = req.body.salario
     let descricao = req.body.descricao
     let expediente = req.body.expediente
+    let quantidade_de_vagas = req.body.quantidade_de_vagas
     let data_encerramento_vaga = req.body.data_encerramento_vaga
     let email_de_contato = req.body.email_de_contato
     let beneficios = req.body.beneficios
@@ -65,8 +66,11 @@ const postVaga = (req,res) => {
 
         if(cidade !== undefined){
 
-            let string = `insert into vagas (id_empresa, cidade, cargo, salario, descricao, expediente, requisitos, data_de_publicacao, data_encerra_vaga, email_de_contato, status_vaga) 
+            let string = (quantidade_de_vagas !== undefined) ?  `insert into vagas (id_empresa, cidade, cargo, salario, descricao, expediente, requisitos, data_de_publicacao, quantidade_de_vagas, data_encerra_vaga, email_de_contato, status_vaga) 
+            values(${id_empresa}, '${cidade}', '${cargo}', '${salario}', '${descricao}', '${expediente}', '${requisitos}', curdate(), ${quantidade_de_vagas}, '${data_encerramento_vaga}', '${email_de_contato}', false)` : 
+            `insert into vagas (id_empresa, cidade, cargo, salario, descricao, expediente, requisitos, data_de_publicacao, data_encerra_vaga, email_de_contato, status_vaga) 
             values(${id_empresa}, '${cidade}', '${cargo}', '${salario}', '${descricao}', '${expediente}', '${requisitos}', curdate(), '${data_encerramento_vaga}', '${email_de_contato}', false)`
+
 
             con.query(string, async (err,result) => {
     
@@ -137,8 +141,11 @@ const postVaga = (req,res) => {
 
                         n_cidade = result[0].nome_cidade
 
-                        let string = `insert into vagas (id_empresa, cidade, cargo, salario, descricao, expediente, requisitos, data_de_publicacao, data_encerra_vaga, email_de_contato, status_vaga) 
-                        values(${id_empresa}, '${n_cidade}', '${cargo}', '${salario}', '${descricao}', '${expediente}', '${requisitos}', curdate(), '${data_encerramento_vaga}', '${email_de_contato}', false)`
+                        let string = (quantidade_de_vagas !== undefined) ?  `insert into vagas (id_empresa, cidade, cargo, salario, descricao, expediente, requisitos, data_de_publicacao, quantidade_de_vagas, data_encerra_vaga, email_de_contato, status_vaga) 
+                        values(${id_empresa}, '${cidade}', '${cargo}', '${salario}', '${descricao}', '${expediente}', '${requisitos}', curdate(), ${quantidade_de_vagas}, '${data_encerramento_vaga}', '${email_de_contato}', false)` : 
+                        `insert into vagas (id_empresa, cidade, cargo, salario, descricao, expediente, requisitos, data_de_publicacao, data_encerra_vaga, email_de_contato, status_vaga) 
+                        values(${id_empresa}, '${cidade}', '${cargo}', '${salario}', '${descricao}', '${expediente}', '${requisitos}', curdate(), '${data_encerramento_vaga}', '${email_de_contato}', false)`
+            
 
                     con.query(string, async (err,result) => {
             
