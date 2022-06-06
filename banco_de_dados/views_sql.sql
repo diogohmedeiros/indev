@@ -29,5 +29,5 @@ v.data_de_publicacao, v.data_encerra_vaga, v.email_de_contato, b.descricao AS be
 CREATE VIEW vw_vaga_02 AS 
 
 SELECT e.nome_empresa, e.cnpj, v.id_empresa, v.id_vaga, v.cidade, v.cargo, v.salario, v.descricao, v.requisitos, v.expediente,
-v.data_de_publicacao, v.data_encerra_vaga, v.email_de_contato, b.descricao AS beneficio FROM empresas e 
+v.data_de_publicacao, v.data_encerra_vaga, v.email_de_contato, v.status_vaga, b.descricao AS beneficio FROM empresas e 
 inner join vagas v on e.id_empresa = v.id_empresa inner join relac_benef_vaga bv on bv.id_vaga = v.id_vaga inner join beneficios b on bv.id_beneficio = b.id_beneficio;

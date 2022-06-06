@@ -1,0 +1,79 @@
+body {
+    width: 100vw;
+    height: 100vh;
+    background-color: #3D69FA;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 50px 0;
+    font-size: small;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+header > nav {
+    display: flex;
+    gap: 50px;
+    justify-content: space-between;
+}
+
+main {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-login {
+    width: 150px;
+}
+
+.login {
+    display: grid;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.login > input {
+    width: 300px;
+    background-color: #04083728;
+    border: #fff solid 2px;
+    border-radius: 20px;
+    padding: 5px 15px;
+    color: #fff;
+}
+
+.login > button {
+    background-color: #040837;
+    font-weight: 600;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 20px;
+    padding: 5px 15px;
+    color: #fff;
+}
+
+.cadastre {
+    text-align: center;
+}
+
+.cadastre > a {    
+    font-weight: 600;
+    text-transform: uppercase;
+    display: flex;
+    text-align: center;
+}
+
+footer {
+    text-align: center;
+}
