@@ -33,5 +33,6 @@ route.get("/buscar_vaga_id/:id_vaga", vagas.getVagaId)
 route.get("/buscar_vaga_id_empresa/:id_empresa", vagas.getVagaIDEmpresa)
 route.get("/buscar_vaga_nome_empresa/:nome_empresa", vagas.getVagaNomeEmpresa)
 route.post("/encerrar_vaga", vagas.encerrarVaga)
+route.put("/atualizar_vaga", vagas.atualizarVagas)
 
 module.exports = route
