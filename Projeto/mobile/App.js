@@ -9,6 +9,7 @@ const Stack = createNativeStackNavigator();
 
 import Login from './pages/login/login';
 import MainDrawer from './pages/mainDrawer/drawer';
+import Detalhe from './pages/detalhe_vaga/detalhe';
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
       }}>
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="MainDrawer" component={MainDrawer} />
+        <Stack.Screen name="Detalhe" component={Detalhe} />
       </Stack.Navigator>
     </NavigationContainer>
   );

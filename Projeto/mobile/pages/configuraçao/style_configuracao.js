@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#f8f9fa'
+        backgroundColor: '#fff'
     },
     header: {
         height: 85,
@@ -31,6 +31,40 @@ export default StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#EBEEF5',
         width: '100%', 
-        height: '32%'
+        height: '21%'
+    },
+    campo: {
+        padding: 8,
+        borderBottomWidth: 2, 
+        borderColor: '#3D69FA', 
+        margin: 2
+    },
+    textCampo: {
+        fontWeight: 'bold',
+    },
+    descricao: {
+        borderWidth: 2, 
+        height: 150,
+        borderColor: '#3D69FA',
+        borderRadius: 9,
+        textAlignVertical: 'top',
+        paddingLeft: 10,
+        fontWeight: 'bold', 
+        padding: 7,
+        marginTop: 20
+    },
+    salvar: {
+        backgroundColor:"#040837", 
+        flexDirection: 'row',
+        width: 300, 
+        padding: 10,
+        borderRadius: 5,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 30
+    },
+    viewpicker: {
+        height: 35,
+        marginTop: -10
     }
 })

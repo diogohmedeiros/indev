@@ -1,5 +1,5 @@
 import React, {useState, useMemo, useRef, useCallback, useEffect} from 'react';
-import { View, Text, SafeAreaView, TextInput, TouchableOpacity, Image, Button } from 'react-native';
+import { View, Text, SafeAreaView, TextInput, TouchableOpacity, Image, Button, ScrollView } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import style from './style_vagas.js';
 
@@ -87,56 +87,36 @@ export default function Vagas({ navigation }) {
             </View>
 
             {/* cards de todas as vagas */}
+            <ScrollView>
             <View style={style.contvagas}>
                 {
                     lista.map((item, index) => {
-                        return(
-                            <TouchableOpacity key={index} style={style.cards}>
-                                <Text style={{fontWeight: 'bold', fontSize: 17.5}}>{item.cargo}</Text>
-                                <Text style={{fontWeight: 'bold', fontSize: 15.8}}>{item.nome_empresa}</Text>
-                                <View style={style.row}>
-                                    <Text style={{color: "#3D69FA", fontSize: 17, top: 1}}>CIDADE - UF</Text>
-                                    <Text style={style.numvagas}>Nº VAGAS</Text>
-                                </View>
-                                <Text style={{fontSize: 15}}>Principais atividades do cargo. Blablablablablablablablablablablablablblabaalblalbalblablbalablablab</Text>
-                                <View style={style.salario}>
-                                    <Text style={{top: 2, fontWeight: 'bold'}}>SALÁRIO: </Text>
-                                    <Text style={{top: 2, fontWeight: 'bold', color: '#3D69FA'}}>R$ 1000,00</Text>
-                                </View>
-                                <View style={style.abre}>
-                                    <TouchableOpacity style={{flexDirection: 'row'}}>
-                                        <Text style={{fontWeight: 'bold', top: 5}}>ABRIR VAGA</Text>
-                                        <Image source={require('../../assets/app/seta-para-baixo.png')} style={{width: 25, height: 25, top: 3, left: 5}}/>
-                                    </TouchableOpacity>
-                                </View>
-                            </TouchableOpacity>
-                        )
+                        if(item.cargo.toLowerCase().includes(buscar.toLowerCase()) || item.nome_empresa.toLowerCase().includes(buscar.toLowerCase())) {
+                            return(
+                                <TouchableOpacity key={index} style={style.cards}>
+                                    <Text style={{fontWeight: 'bold', fontSize: 17.5}}>{item.cargo}</Text>
+                                    <Text style={{fontWeight: 'bold', fontSize: 15.8}}>{item.nome_empresa}</Text>
+                                    <View style={style.row}>
+                                        <Text style={{color: "#3D69FA", fontSize: 17, top: 1, fontWeight: 'bold'}}>{item.cidade}</Text>
+                                        <Text style={style.numvagas}>Nº VAGAS</Text>
+                                    </View>
+                                    <Text style={{fontSize: 15}}>{item.descricao}.</Text>
+                                    <View style={style.salario}>
+                                        <Text style={{top: 3, fontWeight: 'bold'}}>SALÁRIO: </Text>
+                                        <Text style={{top: 3, fontWeight: 'bold', color: '#3D69FA'}}>R$ {item.salario}</Text>
+                                    </View>
+                                    <View style={style.abre}>
+                                        <TouchableOpacity onPress={() => { navigation.navigate("Detalhe", item) }}>
+                                            <Text style={{fontWeight: 'bold', top: 5, fontSize:15}}>ABRIR VAGA</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </TouchableOpacity>
+                            )
+                        }
                     })
                 }
-                
-
-
-                {/* <View style={style.cards}>
-                    <Text style={{fontWeight: 'bold', fontSize: 17.5}}>NOME DA VAGA</Text>
-                    <Text style={{fontWeight: 'bold', fontSize: 15.8}}>Empresa</Text>
-                    <View style={style.row}>
-                        <Text style={{color: "#3D69FA", fontSize: 17, top: 1}}>CIDADE - UF</Text>
-                        <Text style={style.numvagas}>Nº VAGAS</Text>
-                    </View>
-                    <Text style={{fontSize: 15}}>Principais atividades do cargo. Blablablablablablablablablablablablablblabaalblalbalblablbalablablab</Text>
-                    <View style={style.salario}>
-                        <Text style={{top: 2, fontWeight: 'bold'}}>SALÁRIO: </Text>
-                        <Text style={{top: 2, fontWeight: 'bold', color: '#3D69FA'}}>R$ 1000,00</Text>
-                    </View>
-                    <View style={style.abre}>
-                        <TouchableOpacity style={{flexDirection: 'row'}}>
-                            <Text style={{fontWeight: 'bold', top: 5}}>ABRIR VAGA</Text>
-                            <Image source={require('../../assets/app/seta-para-baixo.png')} style={{width: 25, height: 25, top: 3, left: 5}}/>
-                        </TouchableOpacity>
-                    </View>
-                </View> */}
             </View> 
-
+            </ScrollView>
             <TabBar navigation={navigation} />
             {/* quando aperta o botão de filtros sobe o bottom sheet */}
             <BottomSheet
@@ -203,8 +183,6 @@ export default function Vagas({ navigation }) {
                     </View>
                 </View>
             </BottomSheet>
-
-            
         </View>
         
     )
