@@ -4,6 +4,7 @@ const route = express.Router()
 const usuarios = require("../src/controller/usuario")
 const empresas = require("../src/controller/empresa")
 const vagas = require("../src/controller/vagas")
+const enderecoEmpresa = require("../src/controller/enderecoEmpresa")
 
 // rotas relacionadas a tabela usuario
 route.post("/cadastrar_usuario", usuarios.postUsuario)
@@ -34,5 +35,11 @@ route.get("/buscar_vaga_id_empresa/:id_empresa", vagas.getVagaIDEmpresa)
 route.get("/buscar_vaga_nome_empresa/:nome_empresa", vagas.getVagaNomeEmpresa)
 route.post("/encerrar_vaga", vagas.encerrarVaga)
 route.put("/atualizar_vaga", vagas.atualizarVagas)
+
+route.post("/cadastrar_endereco_empresa", enderecoEmpresa.postEnderecoEmpresa)
+route.get("/buscar_enderecos_empresas", enderecoEmpresa.getAllEnderecos)
+route.get("/buscar_enderecos_idEmpresa/:id_empresa", enderecoEmpresa.getEnderecosID)
+route.get("/buscar_enderecos_nomeEmpresa", enderecoEmpresa.getEnderecosNome)
+route.put("/alterar_enderecos_empresas", enderecoEmpresa.atualizarEndereco)
 
 module.exports = route
