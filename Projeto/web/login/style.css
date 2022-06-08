@@ -13,15 +13,16 @@ body {
 
 header {
     display: flex;
-    justify-content: space-between;
     text-transform: uppercase;
     font-weight: 600;
+    padding: 20px 200px;
 }
 
 header > nav {
     display: flex;
     gap: 50px;
     justify-content: space-between;
+    color: #fff;
 }
 
 main {
