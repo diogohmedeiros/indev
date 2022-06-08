@@ -7,3 +7,35 @@
     font-family: 'Poppins', sans-serif;
     text-decoration: none;
 }
+
+.header-global {
+    background-color: #3D69FA;
+}
+
+.header-global {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-transform: uppercase;
+    font-weight: 600;
+    padding: 20px 200px;
+}
+
+.header-global > nav {
+    display: flex;
+    justify-content: flex-end;
+    gap: 50px;
+    color: #fff;
+}
+
+.header-global > nav > button {
+    padding: 2px 25px;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #fff;
+    background-color: #040837;
+    border-radius: 5px;
+}
+
+.logo {
+    width: 150px;
+}

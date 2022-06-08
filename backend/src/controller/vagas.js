@@ -498,6 +498,129 @@ const encerrarVaga = (req,res) => {
 }
 
 
+async function deletarBeneficios(query){
+    return new Promise((resolve,reject) => {
+
+        con.query(query, (err,result) => {
+            if(err === null){
+                resolve(result)
+            }else{
+                reject(err)
+            } 
+        })
+
+    })
+}
+
+async function inserirBeneficios(query){
+    return new Promise((resolve,reject) => {
+        con.query(query, (err,result) => {
+            if(err === null){
+                resolve(result)
+            }else{
+                reject(err)
+            }
+        })
+    })
+}
+
+
+const atualizarVagas = async (req,res) => {
+
+    let id_vaga = req.body.id_vaga
+    let cidade = req.body.cidade
+    let cargo = req.body.cargo
+    let salario = req.body.salario
+    let descricao = req.body.descricao
+    let expediente = req.body.expediente 
+    let data_encerramento_vaga = req.body.data_encerramento_vaga
+    let email_de_contato = req.body.email_de_contato
+    let status_vaga = req.body.status_vaga
+    let requisitos = req.body.requisitos
+    let beneficios = req.body.beneficios 
+
+    let index = 0
+    let comerro = false
+
+    if(id_vaga !== undefined){
+
+        try{
+
+            con.beginTransaction()
+
+            let query = `delete from relac_benef_vaga where id_vaga = ${id_vaga}`
+           
+
+            let deletar = await deletarBeneficios(query)
+            .then((resposta) => {
+                console.log(resposta)
+                //con.commit()
+                //res.status(200).json(resposta).end()
+            }).catch((err) => {
+                console.log(err)
+                //con.rollback()
+                //res.status(400).json({err: err.message}).end()
+            })
+
+            
+            do{
+
+                let string = `insert into relac_benef_vaga(id_vaga, id_beneficio) values(${id_vaga},${beneficios[index]})`
+
+                let inserir = await inserirBeneficios(string)
+                .then((resposta) => {
+
+
+                    if(index + 1 === beneficios.length){
+                        console.log("resposta insert beneficios: " + resposta)
+
+                        con.commit()
+                        // res.status(200).json(resposta).end()
+                        comerro = true
+                    }
+                   
+                })
+                .catch((err) => {
+                    con.rollback()
+                    console.log("resposta erro insert beneficios: " + err)
+                    res.status(400).json({err: err.message}).end()
+                    comerro = true 
+                   
+                })
+
+
+
+                index++
+            }while(!comerro)
+
+            
+
+        }catch(err){
+            res.status(400).json({err: err.message}).end()
+        }
+        
+
+        let stringVagas = `update vagas set cidade = '${cidade}', cargo = '${cargo}', salario = ${salario}, descricao = '${descricao}', expediente = '${expediente}', 
+        data_encerra_vaga= '${data_encerramento_vaga}', email_de_contato = '${email_de_contato}', status_vaga = ${status_vaga}, requisitos = '${requisitos}' where id_vaga = ${id_vaga}`
+
+
+        con.query(stringVagas, (err,result) => {
+            if(err === null){
+                res.status(200).json(result).end()
+            }else{
+                res.status(400).json({err: err.message}).end()
+            }
+        })
+
+
+    }else{
+        res.status(400).json({"err": "informe os campos id_vaga"})
+    }
+
+
+}
+
+
 
 module.exports = {
 
@@ -506,5 +629,6 @@ module.exports = {
     getVagaId,
     getVagaIDEmpresa,
     getVagaNomeEmpresa,
-    encerrarVaga
+    encerrarVaga,
+    atualizarVagas
 }
