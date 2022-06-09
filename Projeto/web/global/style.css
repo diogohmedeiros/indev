@@ -9,6 +9,7 @@
 }
 
 .header-global {
+    width: 100vw;
     background-color: #3D69FA;
     font-size: small;
 }
@@ -19,7 +20,7 @@
     gap: 10px;
     text-transform: uppercase;
     font-weight: 600;
-    padding: 20px 400px;
+    padding: 20px;
 }
 
 .header-global > .logo {    
@@ -50,9 +51,7 @@
 }
 
 .div_pesquisar {
-    /* background-color: crimson; */
     display: grid;
-    justify-content: center;
     
     grid-column: 2;
 }
@@ -72,9 +71,47 @@
     color: #fff;
 }
 
-.banners {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    padding: 50px 200px;
+/* .todas-vagas {
+    padding: 20px 200px;
+} */
+
+.box-vaga {
+    padding: 30px;
+    background-color: #fff;
+    border: #3D69FA 2px solid;
+    border-radius: 10px;
+}
+
+.box-vaga > h3 {
+    color: #040837;
+}
+
+.vaga-topo {
+    display: grid;
+    grid-template-columns: 0fr 1fr 1fr;
+    align-items: center;
+
+    background-color: darkorchid;
+}
+
+.titulo-vaga {
+    color: #040837;
+}
+
+.qtd-vagas {
+    color: #040837;
+    font-size: small;
+    font-weight: 600;
+    background-color: #EBEEF5;
+    padding: 2px 10px;
+    border-radius: 5px;
+}
+
+.salario {
+    font-weight: 600;
+    color: #3D69FA;
+}
+
+footer {
+    background-color: #040837;
 }
