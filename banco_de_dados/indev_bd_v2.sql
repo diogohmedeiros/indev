@@ -174,12 +174,3 @@ INSERT INTO parentesco values
 	(DEFAULT, "Marido"),
 	(DEFAULT, "Esposa"),
 	(DEFAULT, "Noivo(a)");
-
-
-
-
-
-
-
-
-
