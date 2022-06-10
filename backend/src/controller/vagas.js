@@ -221,6 +221,8 @@ const postVaga = (req,res) => {
 
 const getAllVagas = (req,res) => {
 
+    let ar = new Array()
+
     let string = `select * from vw_vaga_02 where status_vaga = 0`
 
     con.query(string, (err,result) => {
@@ -229,7 +231,7 @@ const getAllVagas = (req,res) => {
            if(result.length == 0) res.status(200).json({"err": "vaga não encontrada"}).end();
            else {
                
-            let ar = new Array()
+            
             let obj = {}
             let id_vaga = 0 
             let beneficios = new Array()
@@ -278,9 +280,59 @@ const getAllVagas = (req,res) => {
                   
             })
 
-            res.status(200).json(ar).end()
+           
               // ///////////////////////////////
            }
+
+
+           let stringVagas = `select * from vagas`
+
+           con.query(stringVagas, (erro, resultado) => {
+
+                if(erro === null){
+
+                    resultado.forEach((item,index) => {
+
+                        ar.push(item)
+                    })
+
+
+                    let vetor = ar
+
+                
+
+                    vetor.sort(function (a, b) {
+                        if (a.id_vaga > b.id_vaga) {
+                          return 1;
+                        }
+                        if (a.id_vaga < b.id_vaga) {
+                          return -1;
+                        }
+                        // a must be equal to b
+                        return 0;
+                      });
+
+                    //   vetor.forEach((it,idx) => {
+
+
+                    //     if(idx > 0){
+
+                    //         if(it[idx].id_vaga === it[idx -1].id_vaga){
+
+                    //         }
+                    //     }
+
+                        
+                    //   })
+
+
+                    res.status(200).json(vetor).end()
+
+                }else{
+                    res.status(400).json(erro).end()
+                }
+
+           })
 
         }else{
             res.status(400).json({err: err.message}).end()
@@ -299,7 +351,7 @@ const getVagaId = (req,res) => {
         con.query(string, (err,result) => {
             if(err === null){
                 //res.status(200).json(result).end()
-                if(result.length == 0) res.status(200).json({"err": "vaga não encontrada"}).end();
+                if(result.length == 0) res.status(400).json({"err": "vaga não encontrada"}).end();
                 else {
                     let vagaret = {};
                     let beneficios = new Array();
@@ -544,60 +596,71 @@ const atualizarVagas = async (req,res) => {
 
     if(id_vaga !== undefined){
 
-        try{
+        if(beneficios !== undefined){
 
-            con.beginTransaction()
+            try{
 
-            let query = `delete from relac_benef_vaga where id_vaga = ${id_vaga}`
-           
-
-            let deletar = await deletarBeneficios(query)
-            .then((resposta) => {
-                console.log(resposta)
-                //con.commit()
-                //res.status(200).json(resposta).end()
-            }).catch((err) => {
-                console.log(err)
-                //con.rollback()
-                //res.status(400).json({err: err.message}).end()
-            })
-
-            
-            do{
-
-                let string = `insert into relac_benef_vaga(id_vaga, id_beneficio) values(${id_vaga},${beneficios[index]})`
-
-                let inserir = await inserirBeneficios(string)
+                con.beginTransaction()
+    
+                let query = `delete from relac_benef_vaga where id_vaga = ${id_vaga}`
+               
+    
+                let deletar = await deletarBeneficios(query)
                 .then((resposta) => {
-
-
-                    if(index + 1 === beneficios.length){
-                        console.log("resposta insert beneficios: " + resposta)
-
-                        con.commit()
-                        // res.status(200).json(resposta).end()
-                        comerro = true
-                    }
-                   
+                    console.log(resposta)
+                    //con.commit()
+                    //res.status(200).json(resposta).end()
+                }).catch((err) => {
+                    console.log(err)
+                    //con.rollback()
+                    //res.status(400).json({err: err.message}).end()
                 })
-                .catch((err) => {
-                    con.rollback()
-                    console.log("resposta erro insert beneficios: " + err)
-                    res.status(400).json({err: err.message}).end()
-                    comerro = true 
-                   
-                })
+    
+                console.log(beneficios)
+               
+                    do{
+    
+                        let string = `insert into relac_benef_vaga(id_vaga, id_beneficio) values(${id_vaga},${beneficios[index]})`
+        
+                        let inserir = await inserirBeneficios(string)
+                        .then((resposta) => {
+        
+        
+                            if(index + 1 === beneficios.length){
+                                console.log("resposta insert beneficios: " + resposta)
+        
+                                con.commit()
+                                // res.status(200).json(resposta).end()
+                                comerro = true
+                            }
+                           
+                        })
+                        .catch((err) => {
+                            con.rollback()
+                            console.log("resposta erro insert beneficios: " + err)
+                            res.status(400).json({err: err.message}).end()
+                            comerro = true 
+                           
+                        })
+        
+        
+        
+                        index++
+                    }while(!comerro)
+    
+                
+                
+                
+    
+                
+    
+            }catch(err){
+                res.status(400).json({err: err.message}).end()
+            }
 
-
-
-                index++
-            }while(!comerro)
-
-            
-
-        }catch(err){
-            res.status(400).json({err: err.message}).end()
         }
+
+        
         
 
         let stringVagas = `update vagas set cidade = '${cidade}', cargo = '${cargo}', salario = ${salario}, descricao = '${descricao}', expediente = '${expediente}', 
