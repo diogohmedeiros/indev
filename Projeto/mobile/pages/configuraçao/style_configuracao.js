@@ -6,7 +6,7 @@ export default StyleSheet.create({
         backgroundColor: '#fff'
     },
     header: {
-        height: 85,
+        height: 78,
         backgroundColor: '#3757BE',
         alignItems: 'center', 
         justifyContent: 'space-around',
@@ -31,7 +31,7 @@ export default StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#EBEEF5',
         width: '100%', 
-        height: '21%'
+        height: '24%'
     },
     campo: {
         padding: 8,

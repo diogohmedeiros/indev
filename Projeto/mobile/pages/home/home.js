@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { View, Text, SafeAreaView, TextInput, TouchableOpacity, Image, ImageBackground } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { DrawerActions } from '@react-navigation/drawer';
 import style from './style_home.js';
 
@@ -10,7 +11,19 @@ import TabBar from '../components/tabBar/tabbar';
 const image = require('../../assets/app/predio.png')
 
 export default function Home({ navigation }) {
+    const [perfil, setPerfil] = useState("");
     const [buscar, setBuscar] = useState("");
+
+    useEffect(() => {
+        loadData();
+    }, [])
+
+    const loadData = async () => {
+        let id = JSON.parse(await AsyncStorage.getItem('userdata')).id_usuario;
+        fetch('http://10.87.207.11:3000/buscar_usuario_id/' + id)
+        .then(resp => { return resp.json(); })
+        .then(data => { setPerfil(data[0]); })
+    }
 
     return (
         <View style={style.container}>
@@ -53,8 +66,9 @@ export default function Home({ navigation }) {
                     </ImageBackground>
                 </View>
                 
-                <Text style={{fontWeight: 'bold', fontSize:21, top: -125, right: 80}}>Olá, nome do usuario!</Text>
+                <Text style={{fontWeight: 'bold', fontSize:21, top: -15, right: 50}}>Olá, {perfil.nome_usuario}!</Text>
 
+                {/* tres quadradinhos de vagas */}
                 <View style={style.vagasProc}>
                     <View style={style.cards}>
                         <TouchableOpacity style={style.cardButton}>
@@ -70,6 +84,27 @@ export default function Home({ navigation }) {
                         <TouchableOpacity style={style.cardButton}>
                             <Image source={require('../../assets/app/mouse.png')} style={{width: 26, height: 28, top: -8}}/>
                             <Text style={{fontSize: 16, fontWeight: 'bold', top: 10}}>VAGAS DE TI</Text>   
+                        </TouchableOpacity>
+                    </View>
+                </View>
+
+                {/* quatro quadradinhos de vagas de áreas específicas */}
+                <View style={style.four}>
+                    <View style={style.doisprimeiro}>
+                        <TouchableOpacity style={[style.buttonarea, {backgroundColor: '#040837'}]}>
+                            <Text style={{color: '#fff', fontWeight: 'bold'}}>Tecnologia da Informação</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={[style.buttonarea, {backgroundColor: '#fff', borderColor: '#3757BE', marginLeft: 10}]}>
+                            <Text style={{color: '#3757BE', fontWeight: 'bold'}}>Assistente Administrativo</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    <View style={style.doisultimo}>
+                        <TouchableOpacity style={[style.buttonarea, {backgroundColor: '#fff', borderColor: '#3757BE'}]}>
+                            <Text style={{color: '#3757BE', fontWeight: 'bold'}}>Pedreiro</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={[style.buttonarea, , {backgroundColor: '#040837', marginLeft: 10}]}>
+                            <Text style={{color: '#fff', fontWeight: 'bold'}}>Técnico de Enfermagem</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

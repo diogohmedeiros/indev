@@ -1,29 +1,70 @@
 import React, { useState } from 'react';
-import { View, Text, Image, SafeAreaView, TouchableOpacity, TextInput, ScrollView } from 'react-native';
+import { View, Text, Image, SafeAreaView, TouchableOpacity, TextInput, ScrollView, ToastAndroid } from 'react-native';
 import style from './style_configuracao.js'
 import { Picker } from '@react-native-picker/picker';
+import * as ImagePicker from 'expo-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Configuracao({ navigation }) {
-    const[foto, setFoto] = useState(null);
+    const[foto, setFoto] = useState("");
     const[nome, setNome] = useState("");
     const[email, setEmail] = useState("");
     const[telefone, setTelefone] = useState("");
-    const[data, setData] = useState("");
     const[descricao, setDescricao] = useState("");
-    const[pretSalarial, setPretSalarial] = useState("");
     const[cep, setCep] = useState("");
 
     const[selectedCivil, setSelectedCivil] = useState("");
     const[selectedSN, setSelectedSN] = useState("");
 
+
+    const alterar = async () => {
+        let alterar = {
+            foto_usuario: foto,
+            nome_usuario: nome,
+            email: email,
+            telefone: telefone,
+            formacao: descricao,
+            cep: cep
+        }
+
+        fetch('http://10.87.207.11:3000/atualizar_usuario', {
+            "method": "PUT",
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "body": JSON.stringify(alterar)
+        })
+        .then(resp => {
+            if(resp.status == 200){
+
+            }
+        })
+    }
+
+    const selecionarimagem = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+            base64: true
+        })
+
+        let item = result.uri.split(".")
+        if (!result.cancelled) {
+            setFoto(`data:image/${item[item.length-1]};base64,`+result.base64);
+        }else if(!result.cancelled){
+            ToastAndroid.show('Não foi possível selecionar uma foto', ToastAndroid.SHORT);
+        }
+    }
+
     return (
         <View style={style.container}>
             {/* parte header */}
             <SafeAreaView style={style.header}>
-                <TouchableOpacity onPress={() => { navigation.openDrawer() }}>
-                    <Image source={require('../../assets/app/menuburguer.png')} 
-                        style={{width: 30, height: 30, right: 40}}
+                <TouchableOpacity onPress={() => { navigation.navigate("Perfil") }}>
+                    <Image source={require('../../assets/app/voltarbranco.png')} 
+                        style={{width: 40, height: 40, right: 40}}
                         resizeMode="contain"/>
                 </TouchableOpacity>
 
@@ -35,7 +76,7 @@ export default function Configuracao({ navigation }) {
                 <View style={style.fotonome}>
                     <Image source={(foto !== null) ? (foto) : require('../../assets/app/iconperfil.png')}
                         style={{width: 140, height: 140, borderRadius: 70, borderWidth: 3, borderColor: '#F8FAFF', margin: 18}}/>
-                    <TouchableOpacity style={style.trocarfoto} >
+                    <TouchableOpacity onPress={() => { selecionarimagem() }} style={style.trocarfoto} >
                         <Image source={require('../../assets/app/camera.png')} style={{width: 22, height: 22, left: 2}}/>
                         <Text style={{fontWeight: 'bold'}}>TROCAR FOTO</Text>
                     </TouchableOpacity>
@@ -75,18 +116,6 @@ export default function Configuracao({ navigation }) {
                             onChangeText={setTelefone} 
                             placeholderTextColor={'#000'} 
                             placeholder={"telefone do usuario"}
-                            style={{top: 5}}
-                        />
-                    </View>
-
-                    {/* data de nascimento do usuario */}
-                    <View style={style.campo}>
-                        <Text style={style.textCampo}>DATA DE NASCIMENTO</Text>
-                        <TextInput 
-                            value={data}
-                            onChangeText={setData} 
-                            placeholderTextColor={'#000'} 
-                            placeholder={"nascimento do usuario"}
                             style={{top: 5}}
                         />
                     </View>
@@ -138,18 +167,6 @@ export default function Configuracao({ navigation }) {
                         </View>
                     </View>
 
-                    {/* pretensao salarial */}
-                    <View style={style.campo}>
-                        <Text style={style.textCampo}>PRETENSÃO SALARIAL</Text>
-                        <TextInput 
-                            value={pretSalarial}
-                            onChangeText={setPretSalarial} 
-                            placeholderTextColor={'#000'} 
-                            placeholder={"pretensão salarial do usuario"}
-                            style={{top: 5}}
-                        />
-                    </View>
-
                     {/* cep do usuario */}
                     <View style={style.campo}>
                         <Text style={style.textCampo}>CEP</Text>
@@ -164,7 +181,7 @@ export default function Configuracao({ navigation }) {
                 </View>
 
                 <View style={{alignItems: 'center'}}>
-                    <TouchableOpacity style={style.salvar}>
+                    <TouchableOpacity onPress={() => { alterar(), navigation.navigate("Perfil") }} style={style.salvar}>
                         <Image source={require('../../assets/app/disk.png')} style={{width: 20, height: 20, right: 5}}/>
                         <Text style={{fontWeight:'bold', color:'#fff', left: 5}}>SALVAR DADOS</Text>
                     </TouchableOpacity>
