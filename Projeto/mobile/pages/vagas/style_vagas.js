@@ -33,7 +33,13 @@ export default StyleSheet.create({
         borderRadius: 20,
         padding: 15,
         paddingBottom: 25,
-        margin: 6
+        margin: 6,
+        backgroundColor: '#fff',
+        shadowColor: '#000',
+        shadowOffset: { width: 2, height: 4 },
+        shadowOpacity: 0.3,
+        shadowRadius: 10,  
+        elevation: 7
     },
     contvagas: {
         alignItems: 'center',
@@ -109,6 +115,6 @@ export default StyleSheet.create({
         alignItems: "center",
         backgroundColor: "#000",
         borderRadius: 10,
-        top: 90,
+        top: 150,
     }
 })
