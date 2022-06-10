@@ -30,7 +30,11 @@ CREATE TABLE vagas(
 	quantidade_de_vagas integer,
 	data_encerra_vaga DATE NOT NULL,
 	email_de_contato VARCHAR(30) NOT NULL,
+<<<<<<< HEAD
 	status_vaga BOOLEAN NOT NULL,
+=======
+	status_vaga boolean NOT NULL,
+>>>>>>> eb36c08670acc3344d3d4420aeb3de70319301d3
 	requisitos VARCHAR(400),
 	
 	CONSTRAINT fk_vaga FOREIGN KEY (id_empresa) REFERENCES empresas(id_empresa) ON DELETE CASCADE ON UPDATE CASCADE
@@ -200,12 +204,3 @@ INSERT INTO beneficios values
 	(DEFAULT, "Vale farmácia"),
 	(DEFAULT, "Plano médico"),
 	(DEFAULT, "Plano Odontológico");
-
-
-
-
-
-
-
-
-

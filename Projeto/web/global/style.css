@@ -9,25 +9,35 @@
 }
 
 .header-global {
+    width: 100vw;
     background-color: #3D69FA;
+    font-size: small;
 }
 
 .header-global {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 0fr 3fr 0fr;
+    gap: 10px;
     text-transform: uppercase;
     font-weight: 600;
-    padding: 20px 200px;
+    padding: 20px;
+}
+
+.header-global > .logo {    
+    margin-right: 50px;
 }
 
 .header-global > nav {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
     gap: 50px;
     color: #fff;
 }
 
-.header-global > nav > button {
+.header-global > button {
+    max-width: 100px;
+    margin-left: 50px;
     padding: 2px 25px;
     text-transform: uppercase;
     font-weight: 600;
@@ -38,4 +48,70 @@
 
 .logo {
     width: 150px;
+}
+
+.div_pesquisar {
+    display: grid;
+    
+    grid-column: 2;
+}
+
+.div_pesquisar > input {
+    margin: 100px 0;
+
+    /* background: none; */
+    background-color: #04083728;
+    border: #fff solid 2px;
+    border-radius: 20px;
+    padding: 5px 20px;
+    color: #fff;
+}
+
+.div_pesquisar > input::placeholder {
+    color: #fff;
+}
+
+/* .todas-vagas {
+    padding: 20px 200px;
+} */
+
+.box-vaga {
+    padding: 30px;
+    background-color: #fff;
+    border: #3D69FA 2px solid;
+    border-radius: 10px;
+}
+
+.box-vaga > h3 {
+    color: #040837;
+}
+
+.vaga-topo {
+    display: grid;
+    grid-template-columns: 0fr 1fr 1fr;
+    align-items: center;
+
+    background-color: darkorchid;
+}
+
+.titulo-vaga {
+    color: #040837;
+}
+
+.qtd-vagas {
+    color: #040837;
+    font-size: small;
+    font-weight: 600;
+    background-color: #EBEEF5;
+    padding: 2px 10px;
+    border-radius: 5px;
+}
+
+.salario {
+    font-weight: 600;
+    color: #3D69FA;
+}
+
+footer {
+    background-color: #040837;
 }

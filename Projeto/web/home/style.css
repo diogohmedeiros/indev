@@ -1,0 +1,9 @@
+.banners {
+    display: grid;
+    grid-template-columns: 10fr 1fr;
+    justify-content: center;
+    gap: 20px;
+    padding: 50px 200px;
+    background-color: aqua;
+}
+

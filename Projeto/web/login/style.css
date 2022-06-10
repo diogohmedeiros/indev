@@ -54,6 +54,10 @@ main {
     color: #fff;
 }
 
+.login > input::placeholder {
+    color: #fff;
+}
+
 .login > button {
     background-color: #040837;
     font-weight: 600;
