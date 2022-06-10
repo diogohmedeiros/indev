@@ -9,7 +9,7 @@
     <link rel="shortcut icon" href="../../assets/favicon.png" type="image/x-icon">
     <title>Home</title>
 </head>
-<body>
+<body id="scroll">
     
     <header class="header-global">
         <img class="logo" src="../../assets/logo2.png" alt="">
@@ -19,51 +19,172 @@
             <span class="contato">Contato</span>
             <span class="anunciar">Anunciar Vagas</span>
         </nav>
-        <button type="submit">Login</button>
+        <button class="login-header" type="submit">Login</button>
         <div class="div_pesquisar">
             <input type="search" name="pesquisar" id="pesquisar" placeholder="Pesquisar vagas">
         </div>
     </header>
 
+    <img class="objeto-a-flutuar" src="../../assets/banner-1.png" alt="">
+
     <main>
         <section class="banners">
             <img src="../../assets/banner-2.png" alt="">
             <img src="../../assets/banner-3.png" alt="">
+            <!-- https://play.google.com/store/apps -->
         </section>
 
         <section class="todas-vagas">
-            <div class="box-vaga">
+
+            <div class="box-vaga model">
                 <div class="vaga-topo">
-                    <h2 class="titulo-vaga">Executivo De Vendas Executivo De Vendas</h2>
-                    <span class="qtd-vagas">2 Vagas</span>
-                    <p>Salário<span class="salario">R$1800.00</span></p>
-                    
-                    <span class="empresa">Empresa</span>
-                    <span class="cidade">Cidade - UF</span>
-                    <span class="data-post">Até: 10 De Junho, 2022</span>
+                    <div class="vaga-topo-1">
+                        <h2 class="titulo-vaga">Executivo De Vendas Executivo De Vendas</h2>
+                        <span class="empresa">ServTec Soluções em Tecnologia</span>
+                        <span class="cidade">Sorocaba - SP</span>
+                        <span class="qtd-vagas">01 Vagas</span>                    
+                    </div>
+                    <div class="vaga-topo-2">    
+                        <p>Salário: <span class="salario">R$1800.00</span></p>
+                        <span class="data_encerra_vaga">Até: 10 De Junho, 2022</span>
+                    </div>
                 </div>
+
+                <p class="data_de_publicacao">01 Julho, 2022</p>
+
+                <p class="descricao">
+                    Atuar com Vendas Diretas para Atacado -PJ/CNPJ (revendedores, taxistas, além de pequenas, médias e grandes empresas), no segmento de locação de veículos e frotas, com vendas de veículos em Atacado;
+                    Realizar estudo de mercado, identificando tendências e necessidades do cliente, planejar estratégias de atuação e afins;
+                    Entrar em contato com clientes em potencial realizando a prospecção no canal Atacado;
+                </p>
+
+                <div>
+                    <h3>Requisitos</h3>                
+                    <p class="requisitos">Escolaridade Mínima: Ensino Médio (2º Grau). Experiência comprovada.</p>
+                </div>
+                
+                <!-- <div>
+                    <h3>Formação</h3>                
+                    <p>Escolaridade Mínima: Ensino Médio (2º Grau). Experiência comprovada.</p>
+                </div> -->
+                
+                <div class="todos-beneficios">
+                    <h3>Benefícios</h3>
+                    <span class="beneficios">Vale alimentação</span>
+                    <span class="beneficios">Plano Odontológico</span>
+                    <span class="beneficios">Vale farmácia</span>
+                    <span class="beneficios">Plano médico</span>
+                </div>
+
+                <div>
+                    <button class="candidatar-se">Candidatar-se</button>
+                </div>
+            </div>
+
+            <!-- <div class="box-vaga">
+                <div class="vaga-topo">
+                    <div class="vaga-topo-1">
+                        <h2 class="titulo-vaga">Executivo De Vendas Executivo De Vendas</h2>
+                        <span class="empresa">ServTec Soluções em Tecnologia</span>
+                        <span class="cidade">Sorocaba - SP</span>
+                        <span class="qtd-vagas">50 Vagas</span>                    
+                    </div>
+                    <div class="vaga-topo-2">    
+                        <p>Salário: <span class="salario">R$1800.00</span></p>
+                        <span class="data-post">Até: 10 De Junho, 2022</span>
+                    </div>
+                </div>
+
+                <p>01 Julho, 2022</p>
 
                 <p>
                     Atuar com Vendas Diretas para Atacado -PJ/CNPJ (revendedores, taxistas, além de pequenas, médias e grandes empresas), no segmento de locação de veículos e frotas, com vendas de veículos em Atacado;
                     Realizar estudo de mercado, identificando tendências e necessidades do cliente, planejar estratégias de atuação e afins;
                     Entrar em contato com clientes em potencial realizando a prospecção no canal Atacado;
                 </p>
-                <h3>Requisitos</h3>                
-                <p>Escolaridade Mínima: Ensino Médio (2º Grau). Experiência comprovada.</p>
-                <h3>Formação</h3>                
-                <p>Escolaridade Mínima: Ensino Médio (2º Grau). Experiência comprovada.</p>
-                <h3>Benefícios</h3>
-                <div class="candidatar">
-                    <button>Candidatar-se</button>
+
+                <div>
+                    <h3>Requisitos</h3>                
+                    <p>Escolaridade Mínima: Ensino Médio (2º Grau). Experiência comprovada.</p>
+                </div>
+                
+                <div>
+                    <h3>Formação</h3>                
+                    <p>Escolaridade Mínima: Ensino Médio (2º Grau). Experiência comprovada.</p>
+                </div>
+                
+                <div>
+                    <h3>Benefícios</h3>
+                    <span class="beneficios">Vale alimentação</span>
+                    <span class="beneficios">Plano Odontológico</span>
+                    <span class="beneficios">Vale farmácia</span>
+                    <span class="beneficios">Plano médico</span>
+                </div>
+
+                <div>
+                    <button class="candidatar-se">Candidatar-se</button>
                 </div>
             </div>
+            
+            <div class="box-vaga">
+                <div class="vaga-topo">
+                    <div class="vaga-topo-1">
+                        <h2 class="titulo-vaga">Executivo De Vendas Executivo De Vendas</h2>
+                        <span class="empresa">ServTec Soluções em Tecnologia</span>
+                        <span class="cidade">Sorocaba - SP</span>
+                        <span class="qtd-vagas">50 Vagas</span>                    
+                    </div>
+                    <div class="vaga-topo-2">    
+                        <p>Salário: <span class="salario">R$1800.00</span></p>
+                        <span class="data-post">Até: 10 De Junho, 2022</span>
+                    </div>
+                </div>
+
+                <p>01 Julho, 2022</p>
+
+                <p>
+                    Atuar com Vendas Diretas para Atacado -PJ/CNPJ (revendedores, taxistas, além de pequenas, médias e grandes empresas), no segmento de locação de veículos e frotas, com vendas de veículos em Atacado;
+                    Realizar estudo de mercado, identificando tendências e necessidades do cliente, planejar estratégias de atuação e afins;
+                    Entrar em contato com clientes em potencial realizando a prospecção no canal Atacado;
+                </p>
+
+                <div>
+                    <h3>Requisitos</h3>                
+                    <p>Escolaridade Mínima: Ensino Médio (2º Grau). Experiência comprovada.</p>
+                </div>
+                
+                <div>
+                    <h3>Formação</h3>                
+                    <p>Escolaridade Mínima: Ensino Médio (2º Grau). Experiência comprovada.</p>
+                </div>
+                
+                <div>
+                    <h3>Benefícios</h3>
+                    <span class="beneficios">Vale alimentação</span>
+                    <span class="beneficios">Plano Odontológico</span>
+                    <span class="beneficios">Vale farmácia</span>
+                    <span class="beneficios">Plano médico</span>
+                </div>
+
+                <div>
+                    <button class="candidatar-se">Candidatar-se</button>
+                </div>
+            </div> -->
+
         </section>
 
     </main>
 
-    <footer>
-        <p class="copyright">&copy; 2022 INDEV</p>
+    <footer class="footer-global">
+        <div class="menu-footer">
+            <span class="vagas">Vagas</span>
+            <span class="sobre">Sobre</span>
+            <span class="contato">Contato</span>
+            <span class="anunciar">Anunciar Vagas</span>
+        </div>
+        <p class="copyright">&copy; INDEV  2022</p>
     </footer>
 
 </body>
+<script src="./script.js"></script>
 </html>
