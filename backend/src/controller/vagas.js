@@ -78,7 +78,7 @@ const postVaga = (req,res) => {
     
                     id_vaga = result.insertId
 
-                    if(beneficios.length > 0){
+                    if(beneficios !== "Não informado"){
 
                         try{
 
@@ -153,7 +153,7 @@ const postVaga = (req,res) => {
             
                             id_vaga = result.insertId
 
-                            if(beneficios.length > 0){
+                            if(beneficios !== "Não informado"){
 
                                 try{
 
@@ -222,6 +222,7 @@ const postVaga = (req,res) => {
 const getAllVagas = (req,res) => {
 
     let ar = new Array()
+    let vetorIds = []
 
     let string = `select * from vw_vaga_02 where status_vaga = 0`
 
@@ -282,8 +283,11 @@ const getAllVagas = (req,res) => {
 
            
               // ///////////////////////////////
-           }
 
+              ar.forEach((item,index) => {
+                vetorIds.push(ar[index].id_vaga)
+              })
+           }
 
            let stringVagas = `select * from vagas`
 
@@ -293,13 +297,20 @@ const getAllVagas = (req,res) => {
 
                     resultado.forEach((item,index) => {
 
+                        vetorIds.forEach((it,idx) => {
+
+                            if(resultado[index].id_vaga === vetorIds[idx]){
+                                resultado.splice(item, 1)
+                            }
+
+                        })
+                    })
+
+                    resultado.forEach((item,index) => {
                         ar.push(item)
                     })
 
-
                     let vetor = ar
-
-                
 
                     vetor.sort(function (a, b) {
                         if (a.id_vaga > b.id_vaga) {
