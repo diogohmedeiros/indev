@@ -323,18 +323,7 @@ const getAllVagas = (req,res) => {
                         return 0;
                       });
 
-                    //   vetor.forEach((it,idx) => {
-
-
-                    //     if(idx > 0){
-
-                    //         if(it[idx].id_vaga === it[idx -1].id_vaga){
-
-                    //         }
-                    //     }
-
-                        
-                    //   })
+                   
 
 
                     res.status(200).json(vetor).end()
@@ -354,29 +343,62 @@ const getAllVagas = (req,res) => {
 const getVagaId = (req,res) => {
 
     let id_vaga = req.params.id_vaga
+    let resposta 
 
     if(id_vaga !== undefined){
-       
-        let string = `select * from vw_vaga_02 where id_vaga = ${id_vaga} and status_vaga = 0`
 
-        con.query(string, (err,result) => {
-            if(err === null){
-                //res.status(200).json(result).end()
-                if(result.length == 0) res.status(400).json({"err": "vaga não encontrada"}).end();
-                else {
-                    let vagaret = {};
-                    let beneficios = new Array();
-                    result.forEach((vaga, index) => {
-                        if(index == 0) vagaret = vaga;
-                        beneficios.push(vaga.beneficio);
+        let query = `select * from relac_benef_vaga where id_vaga = ${id_vaga}`
+
+        con.query(query, (erro,resultado) => {
+
+            if(erro === null){
+
+                resposta = resultado
+
+                if(resultado.length > 0){
+
+                    let string = `select * from vw_vaga_02 where id_vaga = ${id_vaga} and status_vaga = 0`
+            
+                    con.query(string, (err,result) => {
+                        if(err === null){
+                            //res.status(200).json(result).end()
+                            if(result.length == 0) res.status(400).json({"err": "vaga não encontrada"}).end();
+                            else {
+                                let vagaret = {};
+                                let beneficios = new Array();
+                                result.forEach((vaga, index) => {
+                                    if(index == 0) vagaret = vaga;
+                                    beneficios.push(vaga.beneficio);
+                                })
+                                vagaret.beneficio = beneficios;
+                                res.status(200).json(vagaret).end();
+                            }
+                        }else{
+                            res.status(400).json({err: err.message}).end()
+                        }
                     })
-                    vagaret.beneficio = beneficios;
-                    res.status(200).json(vagaret).end();
-                }
+            
+                    }else{
+            
+                        let string = `select * from vagas where id_vaga = ${id_vaga}`
+            
+                        con.query(string, (err02,result02) => {
+                            if(err02 === null){
+                                res.status(200).json(result02).end()
+                            }else{
+                                res.status(400).json(err02).end()
+                            }
+                        })
+                    }
+
             }else{
-                res.status(400).json({err: err.message}).end()
+                res.status(400).json(erro).end()
             }
         })
+
+        
+       
+        
     }else{
         res.status(400).json({"err": "informe o id_vaga"}).end()
     }
