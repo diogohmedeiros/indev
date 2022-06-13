@@ -30,7 +30,7 @@ body {
 
     position:absolute;
     top: 170px;
-    right: 290px;
+    right: 250px;
 
     -webkit-transform: translateY(0);
     -moz-transform: translateY(0);
@@ -52,4 +52,44 @@ body {
     margin-top: 50px;
     background-color: #040837;
     padding: 50px 20%;
+}
+
+@media (max-width: 1500px){    
+    #obj {
+        display: none;
+    }
+}
+
+@media (max-width: 1100px){
+    .banners {
+        gap: 20px;
+        padding: 20px 0 20px 0;
+    }
+    .banners > img {
+        max-width: 400px;
+    }
+}
+
+@media (max-width: 858px){
+    .banners {
+        display: flex;
+        /* flex-direction: column; */
+        justify-content: center;
+    }
+    #banner-remove {
+        display: none;
+    }
+}
+@media (max-width: 450px){
+    .banners {
+        display: flex;
+        /* flex-direction: column; */
+        justify-content: center;
+    }
+    .banners > img {
+        max-width: 270px;
+    }
+    #banner-remove {
+        display: none;
+    }
 }

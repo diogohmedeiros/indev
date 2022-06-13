@@ -23,7 +23,8 @@ async function fazerLogin(){
         body: JSON.stringify(body)
     }
 
-    let endpoint = "http://localhost:3000/login_usuario";
+    // let endpoint = "http://10.87.207.11:3000/login_usuario";    
+    let endpoint = "http://10.87.207.11:3000/login_usuario";
 
     let response = await fetch(endpoint, settings);
     let data = await response.json();

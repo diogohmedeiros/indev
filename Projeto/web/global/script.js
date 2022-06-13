@@ -1,3 +1,10 @@
+const login = document.querySelector(".login-header");
+const sair = document.querySelector(".sair");
+
+login.addEventListener("click", () => {
+    window.location.href = "../login"
+})
+
 // var usuario = document.querySelector(".fi-ss-user");
 // var sair = document.querySelector(".sair");
 
@@ -18,3 +25,4 @@
 //     window.location.href = "../login"
 //     storage.clear();
 // })
+
