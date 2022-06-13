@@ -78,7 +78,7 @@ const postVaga = (req,res) => {
     
                     id_vaga = result.insertId
 
-                    if(beneficios.length > 0){
+                    if(beneficios !== "Não informado"){
 
                         try{
 
@@ -153,7 +153,7 @@ const postVaga = (req,res) => {
             
                             id_vaga = result.insertId
 
-                            if(beneficios.length > 0){
+                            if(beneficios !== "Não informado"){
 
                                 try{
 
@@ -222,6 +222,7 @@ const postVaga = (req,res) => {
 const getAllVagas = (req,res) => {
 
     let ar = new Array()
+    let vetorIds = []
 
     let string = `select * from vw_vaga_02 where status_vaga = 0`
 
@@ -282,8 +283,11 @@ const getAllVagas = (req,res) => {
 
            
               // ///////////////////////////////
-           }
 
+              ar.forEach((item,index) => {
+                vetorIds.push(ar[index].id_vaga)
+              })
+           }
 
            let stringVagas = `select * from vagas`
 
@@ -293,13 +297,20 @@ const getAllVagas = (req,res) => {
 
                     resultado.forEach((item,index) => {
 
+                        vetorIds.forEach((it,idx) => {
+
+                            if(resultado[index].id_vaga === vetorIds[idx]){
+                                resultado.splice(item, 1)
+                            }
+
+                        })
+                    })
+
+                    resultado.forEach((item,index) => {
                         ar.push(item)
                     })
 
-
                     let vetor = ar
-
-                
 
                     vetor.sort(function (a, b) {
                         if (a.id_vaga > b.id_vaga) {
@@ -312,18 +323,7 @@ const getAllVagas = (req,res) => {
                         return 0;
                       });
 
-                    //   vetor.forEach((it,idx) => {
-
-
-                    //     if(idx > 0){
-
-                    //         if(it[idx].id_vaga === it[idx -1].id_vaga){
-
-                    //         }
-                    //     }
-
-                        
-                    //   })
+                   
 
 
                     res.status(200).json(vetor).end()
@@ -343,102 +343,338 @@ const getAllVagas = (req,res) => {
 const getVagaId = (req,res) => {
 
     let id_vaga = req.params.id_vaga
+    let resposta 
 
     if(id_vaga !== undefined){
-       
-        let string = `select * from vw_vaga_02 where id_vaga = ${id_vaga} and status_vaga = 0`
 
-        con.query(string, (err,result) => {
-            if(err === null){
-                //res.status(200).json(result).end()
-                if(result.length == 0) res.status(400).json({"err": "vaga não encontrada"}).end();
-                else {
-                    let vagaret = {};
-                    let beneficios = new Array();
-                    result.forEach((vaga, index) => {
-                        if(index == 0) vagaret = vaga;
-                        beneficios.push(vaga.beneficio);
+        let query = `select * from relac_benef_vaga where id_vaga = ${id_vaga}`
+
+        con.query(query, (erro,resultado) => {
+
+            if(erro === null){
+
+                resposta = resultado
+
+                if(resultado.length > 0){
+
+                    let string = `select * from vw_vaga_02 where id_vaga = ${id_vaga} and status_vaga = 0`
+            
+                    con.query(string, (err,result) => {
+                        if(err === null){
+                            //res.status(200).json(result).end()
+                            if(result.length == 0) res.status(400).json({"err": "vaga não encontrada"}).end();
+                            else {
+                                let vagaret = {};
+                                let beneficios = new Array();
+                                result.forEach((vaga, index) => {
+                                    if(index == 0) vagaret = vaga;
+                                    beneficios.push(vaga.beneficio);
+                                })
+                                vagaret.beneficio = beneficios;
+                                res.status(200).json(vagaret).end();
+                            }
+                        }else{
+                            res.status(400).json({err: err.message}).end()
+                        }
                     })
-                    vagaret.beneficio = beneficios;
-                    res.status(200).json(vagaret).end();
-                }
+            
+                    }else{
+            
+                        let string = `select * from vagas where id_vaga = ${id_vaga}`
+            
+                        con.query(string, (err02,result02) => {
+                            if(err02 === null){
+                                res.status(200).json(result02).end()
+                            }else{
+                                res.status(400).json(err02).end()
+                            }
+                        })
+                    }
+
             }else{
-                res.status(400).json({err: err.message}).end()
+                res.status(400).json(erro).end()
             }
         })
+
+        
+       
+        
     }else{
         res.status(400).json({"err": "informe o id_vaga"}).end()
     }
 }
 
-const getVagaIDEmpresa = (req,res) => {
+
+
+async function getIDVaga(string){
+
+    return new Promise((resolve,reject) => {
+
+        con.query(string,(err,result) => {
+            if(err === null){
+                resolve(result)
+            }else{
+                reject(err)
+            }
+        })
+    })
+}
+
+const getVagaIDEmpresa = async (req,res) => {
 
     let id_empresa = req.params.id_empresa
+    let vetIDS = []
+    let index = 0
+    let comerro = false
+    let index02 = 0
+    let comerro02 = false
+    let index03 = 0
+    let comerro03 = false
+    let index04 = 0
+    let comerro04 = false
+
+
     
     if(id_empresa !== undefined){
 
-        let string = `select * from vw_vaga_02 where id_empresa = ${id_empresa} and status_vaga = 0`
 
-        con.query(string, (err,result) => {
+        let queryID = `select id_vaga from vagas where id_empresa = ${id_empresa}`
 
-            if(err === null){
-                if(result.length > 0){
-                 
-                    let ar = new Array()
-                    let obj = {}
-                    let id_vaga = 0 
-                    let beneficios = new Array()
+        vetIDS = await getIDVaga(queryID)
 
-                    result.forEach((item,index) => {
-                        
-                        if(id_vaga === 0){
-                            
-                            if(index === 0){
-                            obj = item
-                            id_vaga = item.id_vaga
-                            beneficios.push(item.beneficio)
-                            
-                            obj.beneficio = beneficios
-                            
-                            }
-                        }
-                        
-                        else{
-                            
-                            if(id_vaga === item.id_vaga){
-                                id_vaga = item.id_vaga
-                                beneficios.push(item.beneficio)
-                                obj.beneficio = beneficios
-                            }else{
-                            
-                                beneficios = new Array()
-                                ar.push(obj)
+        let vetorCompleto = new Array()
+        let vetorBeneficios = new Array()
+        let vetorSbeneficios = new Array()
 
-                                obj = item
-                                
-                                id_vaga = item.id_vaga
-                                
-                                beneficios.push(item.beneficio)
+        vetIDS.forEach((item,index) => {
 
-                                console.log(beneficios)
-                                
-                                obj.beneficio = beneficios
-                            
-                                
-                            }
-                            
-                        }	
-                        
-                    })
+            vetorCompleto.push(item.id_vaga)
 
-                    res.status(200).json(ar).end()
-                }else{
-                    res.status(400).json({"err": "sem resultados"}).end()
-                }
-            }else{
-                res.status(400).json({err: err.message}).end()
-            }
         })
+
+       
+        let queryBeneficios
+
+        while(!comerro){
+
+            if(index+1 === vetorCompleto.length){
+
+                comerro = true
+            }else{
+
+                queryBeneficios = `select id_vaga from relac_benef_vaga where id_vaga = ${vetorCompleto[index]}`
+           
+                let retorno = await getIDVaga(queryBeneficios)
+                if(retorno.length > 0){
+
+                    retorno.forEach((item,index) => {
+                        vetorBeneficios.push(item.id_vaga)
+                    })
+                    
+                }  
+
+            }
+          
+            
+            index++
+        }
+
+      
+        for(let i = 0; i < vetorBeneficios.length; i++){
+
+            for(let j = 1; j < vetorBeneficios.length; j++){
+            
+                if(vetorBeneficios[i] === vetorBeneficios[j]){
+                    vetorBeneficios.splice(vetorBeneficios[i],1)
+                }
+            }
+
+        }
+          
+      
+
+
+        let queryVagas
+
+        queryVagas = `select id_vaga from vagas`
+           
+        let retorno = await getIDVaga(queryVagas)
+
+        retorno.forEach((item,index) => {
+             vetorSbeneficios.push(item.id_vaga)
+
+        })
+  
+        let vet = vetorSbeneficios
+
+        for(let i = 0; i < vet.length; i++){
+
+            for(let j = 0; j < vetorBeneficios.length; j++){
+            
+                if(vetorSbeneficios[i] === vetorBeneficios[j]){
+                    vetorSbeneficios.splice(i,1)
+                }
+            }
+
+        }
+
+
+        let vetorBeneficiosObj = new Array()
+        let string
+        while(!comerro03){
+
+            console.log(vetorBeneficios[index03])
+
+            string = `select * from vw_vaga_02 where id_vaga = ${vetorBeneficios[index03]} and status_vaga = 0`
+            console.log(string)
+            let resp = await getIDVaga(string)
+
+            if(resp.length > 0){
+
+                resp.forEach((item,index) => {
+
+                    vetorBeneficiosObj.push(item)
+                })
+            }
+
+            if(index03+1 === vetorBeneficios.length){
+
+                comerro03 = true 
+            }
+    
+            index03++
+        }
+
+
+
+
+
+
+        let vetorSBeneficiosObj = new Array()
+        let stringS
+        while(!comerro04){
+
+           
+
+           
+
+            stringS = `select * from vagas where id_vaga = ${vetorSbeneficios[index04]} and status_vaga = 0`
+
+            let resp = await getIDVaga(stringS)
+            
+            if(resp.length > 0){
+
+                resp.forEach((item,index) => {
+
+                    vetorSBeneficiosObj.push(item)
+                    
+                })
+            }
+
+            if(index04+1 === vetorSbeneficios.length){
+
+                comerro04 = true 
+            }
+    
+            index04++
+        }
+
+
+        //res.status(200).json(vetorBeneficiosObj).end()
+
+        if(vetorBeneficiosObj.length > 0){
+                 
+            console.log(vetorBeneficiosObj)
+
+            let ar = new Array()
+            let obj = {}
+            let id_vaga = 0 
+            let beneficios = new Array()
+
+            vetorBeneficiosObj.forEach((item,index) => {
+                        
+                if(id_vaga === 0){
+                            
+                    if(index === 0){
+                    obj = item
+                    id_vaga = item.id_vaga
+                    beneficios.push(item.beneficio)
+                    
+                    obj.beneficio = beneficios
+
+                    ar.push(obj)
+                    
+                    }
+
+                   
+                }
+                        
+                else{
+                    
+                    if(id_vaga === item.id_vaga){
+                        id_vaga = item.id_vaga
+                        beneficios.push(item.beneficio)
+                        obj.beneficio = beneficios
+
+                        
+                      
+                    }else{
+                    
+                        id_vaga = item.id_vaga
+                        beneficios = new Array()
+                        
+                       
+                        obj = item
+                        ar.push(obj)
+                        
+                        // id_vaga = item.id_vaga
+                        
+                        beneficios.push(item.beneficio)
+
+                        
+                        obj.beneficio = beneficios
+                    
+                        
+                    }
+                    
+                }	
+                        
+            })
+
+
+            vetorSBeneficiosObj.forEach((item,index) => {
+                ar.push(item)
+            })
+
+
+
+            ar.sort(function (a, b) {
+                if (a.id_vaga > b.id_vaga) {
+                  return 1;
+                }
+                if (a.id_vaga < b.id_vaga) {
+                  return -1;
+                }
+                // a must be equal to b
+                return 0;
+              });
+
+
+
+
+
+            res.status(200).json(ar).end()
+        }else{
+                res.status(400).json({"err": "sem resultados"}).end()
+        }
+
+
+
+
+
+
+
+
 
     }else{
         res.status(400).json({"err": "informe o id_empresa"}).end()
