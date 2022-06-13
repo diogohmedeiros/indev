@@ -91,7 +91,7 @@ export default function Vagas({ navigation }) {
             <View style={style.contvagas}>
                 {
                     lista.map((item, index) => {
-                        if(item.cargo.toLowerCase().includes(buscar.toLowerCase()) || item.nome_empresa.toLowerCase().includes(buscar.toLowerCase()) || item.cidade.toLowerCase().includes(buscar.toLowerCase())) {
+                        if(item.cargo.toLowerCase().includes(buscar.toLowerCase()) || item.cidade.toLowerCase().includes(buscar.toLowerCase())) {
                             return(
                                 <TouchableOpacity key={index} style={style.cards}  onPress={() => { navigation.navigate("Detalhe", item) }}>
                                     <Text style={{fontWeight: 'bold', fontSize: 17.5}}>{item.cargo}</Text>
