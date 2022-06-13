@@ -106,7 +106,7 @@ export default StyleSheet.create({
     buttonarea: {
         borderWidth: 2,
         borderRadius: 10,
-        width: 180,
+        width: 170,
         padding: 12,
         shadowColor: '#000',
         shadowOffset: { width: 2, height: 4 },
