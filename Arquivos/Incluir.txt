@@ -1,0 +1,3 @@
+view: quantidade_de_vagas
+
+PCD: true ou false

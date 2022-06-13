@@ -1,0 +1,129 @@
+body {
+    width: 100%;
+    background-color: #F8FAFF;
+}
+
+.section-contato-1 {
+    padding: 100px 0 /*20%*/;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items:center;
+    align-items: center;
+    background-color: #F8FAFF;
+    background-attachment: fixed;
+    /* background-image: url(../../assets/background3.jpg); */
+    background-image: url(../../assets/venue-bg-2.jpg);
+    /* background-image: url(../../assets/bg-contact.png); */
+    background-size: cover;
+}
+
+#text-section-contato-1 {
+    width: 80%;
+    display: grid;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#text-section-contato-1 > h1 {
+    font-size: 40px;
+    font-weight: 800;
+    text-transform: uppercase;
+    line-height: 1;
+    color: #040837;
+}
+
+#text-section-contato-1 > input, textarea {
+    padding: 5px;
+    border: #040837 2px solid;
+    border-radius: 10px;
+    outline: 0;
+}
+
+#img-section-contato-1 {
+    margin-top: 50px;
+    width: 550px;
+    /* display: none; */
+}
+
+#text-section-contato-2 {
+    width: 70%;
+}
+
+.section-contato-2 {
+    /* padding: 100px 0 20%; */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items:center;
+    align-items: center;
+    background-image: url(../../assets/register-bg.jpg);
+    background-position: bottom;
+    background-attachment: fixed;
+    color: #fff;
+}
+
+#text-section-contato-2 > h1 {
+    font-size: 40px;
+    font-weight: 800;
+    text-transform: uppercase;
+    line-height: 1;
+    color: #fff;
+}
+
+#map {
+    width: 600px;
+    height: 450px;
+    box-shadow: #04083759 2px 2px 20px;
+    border: none;
+    /* border-radius: 20px; */
+}
+
+.footer-global {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    color: #fff;
+    /* font-weight: 600; */
+    background-color: #040837;
+    padding: 50px 20%;
+}
+
+@media (max-width: 1100px){
+    /* header {
+        padding: 0 10vw;
+    } */
+    .section-contato-1 {
+        grid-template-columns: 1fr;
+        justify-content: center;
+        gap: 20px;
+    }
+    .section-contato-2 {
+        grid-template-columns: 1fr;
+        justify-content: center;
+        gap: 20px;
+    }
+    #img-section-contato-1 {
+        width: 250px;
+        grid-row: 1;
+        /* display: none; */
+    }
+    #img-section-contato-1 {
+        width: 250px;
+        grid-row: 1;
+        /* display: none; */
+    }
+    #text-section-contato-1 {
+        grid-row: 2;
+    }
+    #text-section-contato-1 > h1 {        
+        font-size: 25px;
+    }
+    #text-section-contato-2 {
+        grid-row: 2;
+    }
+    #text-section-contato-2 > h1 {
+        font-size: 25px;
+    }
+    .footer-global {
+        grid-template-columns: 1fr;
+    }
+}
