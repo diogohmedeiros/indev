@@ -57,6 +57,9 @@ const postVaga = (req,res) => {
     beneficios = (beneficios !== undefined) ? beneficios : "Não informado"
     requisitos = (requisitos !== undefined) ? requisitos : "Não informado"
 
+
+    console.log(beneficios)
+
     // como deverá ser este método: 
     // primeiro deve-se criar a vaga para poder capturar o id_vaga gerado
     // logo após deve-se preencher a tabela relac_benef_vaga com o id capturado e os ids dos beneficios
@@ -77,6 +80,8 @@ const postVaga = (req,res) => {
                 if(err === null){
     
                     id_vaga = result.insertId
+
+                   
 
                     if(beneficios !== "Não informado"){
 
@@ -133,9 +138,13 @@ const postVaga = (req,res) => {
 
             let n_cidade
 
+            console.log(beneficios)
+
             con.query(queryCidadeEmpresa, (err,result) => {
 
                 if(err === null){
+
+                    console.log(beneficios)
 
                     if(result.length > 0){
 
@@ -287,52 +296,54 @@ const getAllVagas = (req,res) => {
               ar.forEach((item,index) => {
                 vetorIds.push(ar[index].id_vaga)
               })
+
+              res.status(200).json(ar).end()
            }
 
            let stringVagas = `select * from vagas`
 
-           con.query(stringVagas, (erro, resultado) => {
+        //    con.query(stringVagas, (erro, resultado) => {
 
-                if(erro === null){
+        //         if(erro === null){
 
-                    resultado.forEach((item,index) => {
+        //             resultado.forEach((item,index) => {
 
-                        vetorIds.forEach((it,idx) => {
+        //                 vetorIds.forEach((it,idx) => {
 
-                            if(resultado[index].id_vaga === vetorIds[idx]){
-                                resultado.splice(item, 1)
-                            }
+        //                     if(resultado[index].id_vaga === vetorIds[idx]){
+        //                         resultado.splice(item, 1)
+        //                     }
 
-                        })
-                    })
+        //                 })
+        //             })
 
-                    resultado.forEach((item,index) => {
-                        ar.push(item)
-                    })
+        //             resultado.forEach((item,index) => {
+        //                 ar.push(item)
+        //             })
 
-                    let vetor = ar
+        //             let vetor = ar
 
-                    vetor.sort(function (a, b) {
-                        if (a.id_vaga > b.id_vaga) {
-                          return 1;
-                        }
-                        if (a.id_vaga < b.id_vaga) {
-                          return -1;
-                        }
-                        // a must be equal to b
-                        return 0;
-                      });
+        //             vetor.sort(function (a, b) {
+        //                 if (a.id_vaga > b.id_vaga) {
+        //                   return 1;
+        //                 }
+        //                 if (a.id_vaga < b.id_vaga) {
+        //                   return -1;
+        //                 }
+        //                 // a must be equal to b
+        //                 return 0;
+        //               });
 
                    
 
 
-                    res.status(200).json(vetor).end()
+        //             res.status(200).json(vetor).end()
 
-                }else{
-                    res.status(400).json(erro).end()
-                }
+        //         }else{
+        //             res.status(400).json(erro).end()
+        //         }
 
-           })
+        //    })
 
         }else{
             res.status(400).json({err: err.message}).end()
