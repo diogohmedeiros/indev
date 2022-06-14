@@ -13,9 +13,10 @@ export default StyleSheet.create({
         flexDirection: 'row',
     },
     corpo: {
-        marginTop: 30,
+        marginTop: 17,
         margin: 30,
         paddingTop: 20,
+        flex: 6
     },
     numvagas: {
         fontWeight: 'bold', 
@@ -25,5 +26,16 @@ export default StyleSheet.create({
         width:80,
         textAlign: 'center',
         backgroundColor: '#EBEEF5'
+    },
+    button: {
+        marginRight: 10, 
+        backgroundColor:"#040837", 
+        borderWidth:1,
+        height: 40,
+        width: 160, 
+        padding: 6,
+        borderRadius: 7,
+        justifyContent: 'center', 
+        alignItems: 'center'
     }
 })

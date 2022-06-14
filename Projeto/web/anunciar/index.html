@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../global/style.css">
+    <link rel="shortcut icon" href="../../assets/favicon.png" type="image/x-icon">
+    <title>Sobre</title>
+    
+	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</head>
+<body id="scroll">
+    
+    <header class="header-global">
+        <nav>
+            <input type="checkbox" id="check">
+            <label for="check" class="checkbtn">
+                <!-- <i class="fas fa-bars"></i> -->
+                <img id="menu" src="../../assets/menu-burger-free-icon-font.svg" alt="">
+            </label>
+            <img class="logo" src="../../assets/logo2.png" alt="">
+            <ul>
+                <li id="vagas"><a href="../home/index.html">Vagas</a></li>
+                <li id="sobre"><a href="../sobre/index.html">Sobre</a></li>
+                <li id="contato"><a href="../contato/index.html">Contato</a></li>
+                <li id="anunciar"><a href="../anunciar/index.html">Anunciar Vagas</a></li>
+                <button class="login-header" type="submit">Login</button>
+            </ul>
+        </nav>
+        <!-- <div class="div_pesquisar">
+            <input type="search" name="pesquisar" id="pesquisar" placeholder="Pesquisar vagas">
+        </div> -->
+    </header>
+
+    <main class="anunciar-main">
+
+        <h1>Cadastrar nova vaga</h1>
+
+        <div class="post-vaga-col1">
+            <div>
+                <h2>Cargo</h2>                
+                <input name="Cargo" type="text" placeholder="">
+            </div>
+            <div>
+                <h2>Cidade</h2>                
+                <input name="Cidade" type="text" placeholder="">
+            </div>
+            <div>
+                <h2>Salário</h2>                
+                <input name="Salário" type="number" placeholder="">
+            </div>
+            <div>
+                <h2>Quantidade de vagas</h2>                
+                <input name="vagas" type="number" placeholder="">
+            </div>
+            <div>
+                <h2>E-mail de contato</h2>                
+                <input name="vagas" type="email" placeholder="">
+            </div>
+            <div>
+                <h2>Data de Encerramento da vaga</h2>                
+                <input name="vagas" type="date" placeholder="">
+            </div>
+        </div>
+
+        <div class="postar-vaga">
+            <button class="postar-vaga-button" type="submit">Postar vaga</button>
+        </div>
+        
+        <div class="post-vaga-col2">
+            <div>
+                <h2>Sobre a vaga</h2>                
+                <textarea name="Descrição" id="" cols="30" rows="10" placeholder=""></textarea>
+            </div>
+            <div>
+                <h2>Requisitos</h2>                
+                <textarea name="Requisitos" id="" cols="30" rows="10" placeholder=""></textarea>
+            </div>
+            <div>
+                <h2>Expediente</h2>                
+                <textarea name="Expediente" id="" cols="30" rows="5" placeholder=""></textarea>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="footer-global">
+        <div class="menu-footer">
+            <span class="vagas">Vagas</span>
+            <span class="sobre">Sobre</span>
+            <span class="contato">Contato</span>
+            <span class="anunciar">Anunciar Vagas</span>
+        </div>
+        <p class="copyright">&copy;<script>document.write(new Date().getFullYear());</script></p>
+    </footer>
+
+</body>
+<script src="./script.js"></script>
+<script src="../global/script.js"></script>
+</html>

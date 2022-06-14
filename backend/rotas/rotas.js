@@ -5,6 +5,7 @@ const usuarios = require("../src/controller/usuario")
 const empresas = require("../src/controller/empresa")
 const vagas = require("../src/controller/vagas")
 const enderecoEmpresa = require("../src/controller/enderecoEmpresa")
+const indicacao = require("../src/controller/indicacao")
 
 // rotas relacionadas a tabela usuario
 route.post("/cadastrar_usuario", usuarios.postUsuario)
@@ -41,5 +42,8 @@ route.get("/buscar_enderecos_empresas", enderecoEmpresa.getAllEnderecos)
 route.get("/buscar_enderecos_idEmpresa/:id_empresa", enderecoEmpresa.getEnderecosID)
 route.get("/buscar_enderecos_nomeEmpresa", enderecoEmpresa.getEnderecosNome)
 route.put("/alterar_enderecos_empresas", enderecoEmpresa.atualizarEndereco)
+
+
+route.post("/indicacao", indicacao.postIndicacao)
 
 module.exports = route

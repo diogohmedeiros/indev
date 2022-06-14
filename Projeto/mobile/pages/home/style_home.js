@@ -32,7 +32,7 @@ export default StyleSheet.create({
         height: 190,
         backgroundColor: '#040837',
         borderRadius: 15,
-        top: -140
+        top: -35
     },
     title: {
         fontWeight: 'bold',
@@ -60,7 +60,7 @@ export default StyleSheet.create({
     vagasProc: {
         width: 370,
         height: 120,
-        top: -120,
+        top: -6,
         alignItems: 'center',
     },
     cards: {
@@ -76,10 +76,42 @@ export default StyleSheet.create({
         marginRight: 5,
         paddingLeft: 10,
         paddingRight: 10,
-        backgroundColor: '#fff', fontWeight: 'bold',shadowColor: '#000',
+        backgroundColor: '#fff', 
+        fontWeight: 'bold',
+        shadowColor: '#000',
         shadowOffset: { width: 2, height: 4 },
         shadowOpacity: 0.3,
         shadowRadius: 10,  
         elevation: 10
+    },
+    four: {
+        width: "100%",
+        height: "30%",
+        justifyContent: "center",
+    },
+    doisprimeiro: {
+        width: "100%",
+        height: "50%",
+        marginTop: 80,
+        flexDirection: 'row',
+        margin: 20
+    },
+    doisultimo: {
+        width: "100%",
+        height: "50%",
+        marginTop: -10, 
+        flexDirection: 'row',
+        margin: 20
+    },
+    buttonarea: {
+        borderWidth: 2,
+        borderRadius: 10,
+        width: 170,
+        padding: 12,
+        shadowColor: '#000',
+        shadowOffset: { width: 2, height: 4 },
+        shadowOpacity: 0.3,
+        shadowRadius: 10,  
+        elevation: 6,
     }
 })

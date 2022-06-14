@@ -1,5 +1,5 @@
 import React, {useState, useMemo, useRef, useCallback, useEffect} from 'react';
-import { View, Text, SafeAreaView, TextInput, TouchableOpacity, Image, Button, ScrollView } from 'react-native';
+import { View, Text, SafeAreaView, TextInput, TouchableOpacity, Image, ScrollView, } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import style from './style_vagas.js';
 
@@ -91,14 +91,14 @@ export default function Vagas({ navigation }) {
             <View style={style.contvagas}>
                 {
                     lista.map((item, index) => {
-                        if(item.cargo.toLowerCase().includes(buscar.toLowerCase()) || item.nome_empresa.toLowerCase().includes(buscar.toLowerCase())) {
+                        if(item.cargo.toLowerCase().includes(buscar.toLowerCase()) || item.cidade.toLowerCase().includes(buscar.toLowerCase())) {
                             return(
-                                <TouchableOpacity key={index} style={style.cards}>
+                                <TouchableOpacity key={index} style={style.cards}  onPress={() => { navigation.navigate("Detalhe", item) }}>
                                     <Text style={{fontWeight: 'bold', fontSize: 17.5}}>{item.cargo}</Text>
                                     <Text style={{fontWeight: 'bold', fontSize: 15.8}}>{item.nome_empresa}</Text>
                                     <View style={style.row}>
                                         <Text style={{color: "#3D69FA", fontSize: 17, top: 1, fontWeight: 'bold'}}>{item.cidade}</Text>
-                                        <Text style={style.numvagas}>Nº VAGAS</Text>
+                                        <Text style={style.numvagas}>2 VAGAS</Text>
                                     </View>
                                     <Text style={{fontSize: 15}}>{item.descricao}.</Text>
                                     <View style={style.salario}>

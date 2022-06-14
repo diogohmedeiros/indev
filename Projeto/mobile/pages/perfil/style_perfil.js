@@ -27,14 +27,14 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         color: '#fff',
         fontSize: 20,
-        top: 20,
-        right: 100,
-        width: 400
+        top: 30,
+        right: 90,
+        width: 300
     },
     containerInfo: {
         backgroundColor: '#fff',
         width: 370,
-        height: 450,
+        height: 420,
         borderRadius: 17,
         borderWidth: 3,
         borderColor: '#3757BE',
