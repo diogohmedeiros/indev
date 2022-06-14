@@ -9,22 +9,6 @@ body {
     justify-content: space-between;
     padding: 50px 0;
     font-size: small;
-
-    background-image: url("../../assets/register-bg.jpg");
-    /* backdrop-filter: blur(30px); */
-    /* background-size: 160%;
-    background-position: left; */
-    background-attachment: fixed;
-    animation: anima 25s ease alternate infinite;
-}
-
-@keyframes anima {
-    from {
-        background-position: 0 50%;
-    }
-    to {
-        background-position: 50% 100%;
-    }
 }
 
 header {
@@ -49,21 +33,6 @@ main {
     justify-content: center;
 }
 
-/* #bg {
-    background-image: url(../../assets/jobs-icon-png-28.jpg);
-    background-attachment: fixed;
-    animation: animaa 25s ease alternate infinite;
-}
-
-@keyframes animaa {
-    from {
-        background-position: 0 50%;
-    }
-    to {
-        background-position: 50% 100%;
-    }
-} */
-
 .logo-login {
     width: 150px;
 }
@@ -83,16 +52,10 @@ main {
     border-radius: 20px;
     padding: 5px 15px;
     color: #fff;
-    outline: 0;
-}
-
-.login > input::placeholder {
-    color: #fff;
 }
 
 .login > button {
-    background-color: #3D69FA;
-    /* background-color: #040837; */
+    background-color: #040837;
     font-weight: 600;
     text-transform: uppercase;
     border: none;
@@ -102,15 +65,14 @@ main {
 }
 
 .cadastre {
-    display: flex;
-    gap: 5px;
+    text-align: center;
 }
 
 .cadastre > a {    
     font-weight: 600;
     text-transform: uppercase;
     display: flex;
-    color: #fff;
+    text-align: center;
 }
 
 footer {
