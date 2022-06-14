@@ -8,8 +8,8 @@ const formatter = Intl.DateTimeFormat("pt-br", {
 });
 
 async function vagas(){
-    const response = await fetch("http://localhost:3000/buscar_todas_vagas/");
-    // const response = await fetch("http://10.87.207.11:3000/buscar_todas_vagas");
+    const response = await fetch("http://localhost:3000/buscar_vaga_id/" + id_vaga);
+    // const response = await fetch("http://10.87.207.11:3000/buscar_vaga_id/" + id_vaga);
     const data = await response.json();
     console.log(data);
     data.forEach(e => {
@@ -31,25 +31,11 @@ async function vagas(){
         //     console.log(todosBeneficios)
         // })
         model.querySelector(".email_de_contato").innerHTML= e.email_de_contato
-        model.querySelector(".qtd-vagas").innerHTML= e.quantidade_de_vagas + " Vagas"        
+        model.querySelector(".qtd-vagas").innerHTML= e.quantidade_de_vagas + " Vagas"
+        // model.classList.remove("model")
+        model.document.querySelector('.model:last-child').remove();
         document.querySelector(".todas-vagas").appendChild(model)
     } )
 }
 
 vagas();
-
-function buscarVaga() {
-  let oculta = document.querySelectorAll(".box-vaga")
-
-  let busca = document.querySelector("#pesquisar").value.toLowerCase();
-
-  let rows = document.querySelectorAll(".titulo-vaga");
-
-  for(let i = 0; i<rows.length; i++) {
-      if(rows[i].innerHTML.toString().toLowerCase().includes(busca)) {
-          oculta[i].style.display = "grid";
-      }else {
-          oculta[i].style.display = "none";
-      }
-  }
-}

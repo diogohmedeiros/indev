@@ -9,24 +9,22 @@
     <link rel="shortcut icon" href="../../assets/favicon.png" type="image/x-icon">
     <title>Sobre</title>
     
-	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 </head>
 <body id="scroll">
     
     <header class="header-global">
-        <nav>
+        <nav class="nav-clone">
             <input type="checkbox" id="check">
             <label for="check" class="checkbtn">
                 <!-- <i class="fas fa-bars"></i> -->
                 <img id="menu" src="../../assets/menu-burger-free-icon-font.svg" alt="">
             </label>
             <img class="logo" src="../../assets/logo2.png" alt="">
-            <ul>
+            <ul class="remover">
                 <li id="vagas"><a href="../home/index.html">Vagas</a></li>
                 <li id="sobre"><a href="../sobre/index.html">Sobre</a></li>
                 <li id="contato"><a href="../contato/index.html">Contato</a></li>
                 <li id="anunciar"><a href="../anunciar/index.html">Anunciar Vagas</a></li>
-                <button class="login-header" type="submit">Login</button>
             </ul>
         </nav>
         <!-- <div class="div_pesquisar">
@@ -38,50 +36,22 @@
 
         <h1>Cadastrar nova vaga</h1>
 
-        <div class="post-vaga-col1">
-            <div>
-                <h2>Cargo</h2>                
-                <input name="Cargo" type="text" placeholder="">
-            </div>
-            <div>
-                <h2>Cidade</h2>                
-                <input name="Cidade" type="text" placeholder="">
-            </div>
-            <div>
-                <h2>Salário</h2>                
-                <input name="Salário" type="number" placeholder="">
-            </div>
-            <div>
-                <h2>Quantidade de vagas</h2>                
-                <input name="vagas" type="number" placeholder="">
-            </div>
-            <div>
-                <h2>E-mail de contato</h2>                
-                <input name="vagas" type="email" placeholder="">
-            </div>
-            <div>
-                <h2>Data de Encerramento da vaga</h2>                
-                <input name="vagas" type="date" placeholder="">
+        <div class="area-cadastro">             
+            <input id="cargo" name="Cargo" type="text" placeholder="Cargo">
+            <input id="cidade" name="Cidade" type="text" placeholder="Cidade">
+            <input id="salario" name="Salário" type="number" placeholder="Salário">
+            <input id="quantidade_de_vagas" name="vagas" type="number" placeholder="Quantidade de vagas">
+            <input id="email_de_contato" name="vagas" type="email" placeholder="E-mail de contato">
+            <input id="data_encerramento_vaga" name="vagas" type="date" placeholder="Data de Encerramento da vaga">
+            <div class="textarea">
+                <textarea name="Descrição" id="descricao" cols="30" rows="5" placeholder="Sobre a vaga"></textarea>
+                <textarea name="Requisitos" id="requisitos" cols="30" rows="5" placeholder="Requisitos"></textarea>
+                <textarea name="Expediente" id="expediente" cols="30" rows="5" placeholder="Expediente"></textarea>
             </div>
         </div>
 
         <div class="postar-vaga">
-            <button class="postar-vaga-button" type="submit">Postar vaga</button>
-        </div>
-        
-        <div class="post-vaga-col2">
-            <div>
-                <h2>Sobre a vaga</h2>                
-                <textarea name="Descrição" id="" cols="30" rows="10" placeholder=""></textarea>
-            </div>
-            <div>
-                <h2>Requisitos</h2>                
-                <textarea name="Requisitos" id="" cols="30" rows="10" placeholder=""></textarea>
-            </div>
-            <div>
-                <h2>Expediente</h2>                
-                <textarea name="Expediente" id="" cols="30" rows="5" placeholder=""></textarea>
-            </div>
+            <button onclick="cadastrarVaga()" class="postar-vaga-button">Postar vaga</button>
         </div>
 
     </main>

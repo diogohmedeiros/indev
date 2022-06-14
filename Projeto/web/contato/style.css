@@ -103,7 +103,7 @@ body {
     }
     #img-section-contato-1 {
         width: 250px;
-        grid-row: 1;
+        grid-row: 2;
         /* display: none; */
     }
     #img-section-contato-1 {
@@ -112,7 +112,7 @@ body {
         /* display: none; */
     }
     #text-section-contato-1 {
-        grid-row: 2;
+        grid-row: 1;
     }
     #text-section-contato-1 > h1 {        
         font-size: 25px;
@@ -125,5 +125,18 @@ body {
     }
     .footer-global {
         grid-template-columns: 1fr;
+    }
+
+    #map {
+        width: 100vw;
+        box-shadow: #04083759 2px 2px 20px;
+        border: none;
+        /* border-radius: 20px; */
+        margin-top: 20px;
+        grid-row: 2;
+    }
+
+    input, textarea {
+        width: 100%;
     }
 }

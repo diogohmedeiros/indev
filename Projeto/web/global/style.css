@@ -112,11 +112,9 @@ nav ul li a {
     -o-transition: 0.5s;
     -moz-transition: 0.5s;
     transition: 0.5s;
-}
 
-.header-global > nav > ul > button {
     cursor: pointer;
-    max-width: 100px;
+    /* max-width: 100px; */
     /* margin-left: 50px; */
     padding: 2px 25px;
     text-transform: uppercase;
@@ -124,6 +122,18 @@ nav ul li a {
     color: #fff;
     background-color: #040837;
     border-radius: 5px;
+}
+
+#sair {
+    width: 40px;
+    padding: 5px;
+    border: #fff solid 3px;
+    border-radius: 5px;
+    background-color: #040837;
+
+    position:fixed;
+    bottom: 20px;
+    right: 20px;
 }
 
 .logo:hover {
