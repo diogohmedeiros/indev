@@ -9,6 +9,13 @@ function cadastrarVaga() {
     let descricao = document.querySelector("#descricao").value;
     let requisitos = document.querySelector("#requisitos").value;
     let expediente = document.querySelector("#expediente").value;
+    // let beneficio = document.querySelector("").value;
+    let vt = document.querySelector("#vt").value;
+    let va = document.querySelector("#va").value;
+    let vr = document.querySelector("#vr").value;
+    let vf = document.querySelector("#vf").value;
+    let pm = document.querySelector("#pm").value;
+    let po = document.querySelector("#po").value;
 
     let data = {
         id_empresa: id_empresa,
@@ -20,10 +27,19 @@ function cadastrarVaga() {
         data_encerramento_vaga: data_encerramento_vaga,
         descricao: descricao,
         requisitos: requisitos,
-        expediente: expediente
+        expediente: expediente,
+        beneficios: [
+			vt,
+            va,
+            vr,
+            vf,
+            pm,
+            po
+		]
     }
 
-    fetch("http://localhost:3000/cadastrar_vaga", {
+    fetch("http://10.87.207.11:3000/cadastrar_vaga", {
+    // fetch("http://localhost:3000/cadastrar_vaga", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"

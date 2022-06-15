@@ -8,8 +8,8 @@ const formatter = Intl.DateTimeFormat("pt-br", {
 });
 
 async function vagas(){
-    const response = await fetch("http://localhost:3000/buscar_todas_vagas/");
-    // const response = await fetch("http://10.87.207.11:3000/buscar_todas_vagas");
+    // const response = await fetch("http://localhost:3000/buscar_todas_vagas/");
+    const response = await fetch("http://10.87.207.11:3000/buscar_todas_vagas");
     const data = await response.json();
     console.log(data);
     data.forEach(e => {

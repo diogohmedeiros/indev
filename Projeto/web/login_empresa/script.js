@@ -7,7 +7,8 @@ function login() {
         senha: senha
     }
 
-    fetch("http://localhost:3000/empresa/login", {
+    fetch("http://10.87.207.11:3000/empresa/login", {
+    // fetch("http://localhost:3000/empresa/login", {
     method: "POST",
     headers: {
         "Content-Type": "application/json"
@@ -30,4 +31,4 @@ function loginCandidato() {
     window.location.href = "../login"
 }
 
-// id_usuario
+// http://10.87.207.11:3000/

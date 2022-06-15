@@ -10,7 +10,7 @@ body {
     padding: 50px 0;
     font-size: small;
 
-    background-image: url("../../assets/register-bg.jpg");
+    background-image: url("../../assets/register-bg-empresas.jpg");
     /* backdrop-filter: blur(30px); */
     /* background-size: 160%;
     background-position: left; */
@@ -91,7 +91,7 @@ main {
 }
 
 .login > button {
-    background-color: #3D69FA;
+    background-color: #040837;
     /* background-color: #040837; */
     font-weight: 600;
     text-transform: uppercase;
@@ -99,6 +99,10 @@ main {
     border-radius: 20px;
     padding: 5px 15px;
     color: #fff;
+}
+
+.login > h1 {
+    text-align: center;
 }
 
 #ou {
